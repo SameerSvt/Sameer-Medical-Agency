@@ -1,0 +1,41 @@
+
+
+.catPannel {
+    width: 100vw;
+    color: rgb(6, 6, 6);
+    background-color: #32c85a;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 2px;
+}
+
+.catPannelItem {
+    border: 1px solid transparent;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.catPannelItem:hover {
+    border: 1px solid rgb(247, 245, 245);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.bodyHome {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.bannerMiddle {
+    width: 80vw;
+    border-radius: 1rem;
+} 
+
+.footerImg {
+    width: 100vw;
+    margin-bottom: 0px;
+    display: flex;
+}
+

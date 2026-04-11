@@ -1,0 +1,11 @@
+.bannerTop {
+    /* max-height: 15vh; */
+    width: 100vw;
+    display: block;
+}
+
+.footerImg {
+    width: 100vw;
+    margin-bottom: 0px;
+    display: flex;
+}

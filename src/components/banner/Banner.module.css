@@ -1,0 +1,9 @@
+.banners {
+    margin: 3rem;
+}
+
+.bannersImg {
+    border: 2px solid transparent;
+    border-radius: 3rem;
+    width: 100%;
+}
