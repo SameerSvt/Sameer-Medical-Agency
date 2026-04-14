@@ -1,0 +1,109 @@
+.card {
+    /* border: 2px solid black; */
+    width: 100%;
+    height: 22vh;
+    padding: 1rem;
+    display: flex;
+}
+
+.cardImage {
+    /* border: 2px solid burlywood; */
+    width: 20%;
+    height: auto;
+}
+
+.cardImage img {
+    width: fit-content;
+    height: 100%;
+}
+
+.cardInfo {
+    /* border: 2px solid black; */
+    height: 100%;
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.cardInfo h1 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.cardInfo h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.pricing h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    display: inline;
+}
+
+.pricing h4 {
+    display: inline;
+    text-decoration: line-through;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: gray;
+    margin-left: 2%;
+    margin-bottom: 0;
+}
+
+.pricing h5 {
+    display: inline;
+    color: green;
+    font-size: 1.2rem;
+    margin-left: 2%;
+}
+
+.quantity {
+    /* border: 2px solid green; */
+    width: 25vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty {
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    height: auto;
+    margin-bottom: 5%;
+    padding: 5px;
+    border-radius: 1rem;
+}
+
+.iconMinus {
+    color: rgb(13, 110, 245);
+    font-size: 3rem;
+}
+
+.qty span {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.iconPlus {
+    color: rgb(13, 110, 245);
+    font-size: 3rem;
+}
+
+.quantity a {
+    font-size: 1.5rem;
+    color: rgb(13, 110, 245);
+}
+
+.hrDivide {
+    margin: 0 1.5% 0 1.5%;
+}
+
