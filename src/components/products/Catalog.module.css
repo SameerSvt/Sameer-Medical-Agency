@@ -1,0 +1,41 @@
+.catalogBanner {
+    margin: 3rem;
+}
+
+.catalogBanner img {
+    border: 2px solid transparent;
+    border-radius: 2rem;
+    width: 100%;
+}
+
+.catalog{
+    width: 90vw;
+    margin: 2.5vw 5vw 2vw 5vw;
+    /* border: 2px solid black; */
+    display: flex;
+}
+
+.leftSection {
+    /* border: 2px solid rgb(14, 36, 233); */
+    width: 20%;
+    height: 70vh;
+
+}
+
+.leftSticky {
+    border-radius: 4rem;
+    width: 100%;
+    height: 80vh;
+    background-color: rgb(163, 207, 236);
+    /* position: sticky;
+    top: 0; */
+}
+
+.rightSection {
+    /* border: 2px solid rgb(238, 2, 2); */
+    /* padding: 1vw; */
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    flex-wrap: wrap;
+}

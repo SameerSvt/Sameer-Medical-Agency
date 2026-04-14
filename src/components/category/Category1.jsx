@@ -15,7 +15,7 @@ export default function category1({category, heading, style}) {
                 {
                     category.map((category, idx) => (
                         <div key={idx}>
-                            <img className={styles.category1Image} style={{width: `${style}vw`}}src={`src/assets/${category}.png`}></img>
+                            <img className={styles.category1Image} style={{width: `${style}vw`}}src={`${category}.png`}></img>
                         </div>
                     ))
                 }

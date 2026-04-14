@@ -1,0 +1,84 @@
+.productCard {
+    /* border: 2px solid rgb(42, 197, 33); */
+    border-radius: 15px;
+    width: 30vw;
+    height: auto;
+    max-height: fit-content;
+    display: flex;
+    margin-bottom: 5vw;
+    margin-left: 5.7vw;
+    padding: 1vw;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+}
+
+.productCardImage {
+    /* border: 2px solid black; */
+    width: 40%;
+    height: auto;
+    margin-right: 5px;
+}
+
+.productCardImage img {
+    width: 100%;
+    height: auto;
+}
+
+.details {
+    flex-grow: 1;
+    /* border: 2px solid black; */
+    padding: 1rem;
+}
+
+.details h1 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.details h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.pricing {
+    margin: 5px;
+    margin-left: 0;
+    /* border: 1px solid black; */
+}
+
+.pricing h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    display: inline;
+
+}
+
+.pricing h4 {
+    display: inline;
+    text-decoration: line-through;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: gray;
+    margin-left: 2%;
+    margin-bottom: 0;
+}
+
+.pricing h5 {
+    display: inline;
+    color: green;
+    font-size: 1.2rem;
+    margin-left: 2%;
+}
+.details button {
+    background-color: rgb(47, 196, 57);
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    width: 80%;
+    height: auto;
+    text-align: center;
+    margin-left: 0;
+    border-radius: 1.5rem;
+
+}

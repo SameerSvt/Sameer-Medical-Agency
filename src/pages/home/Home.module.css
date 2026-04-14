@@ -1,6 +1,4 @@
-
-
-.catPannel {
+.catPanel {
     width: 100vw;
     color: rgb(6, 6, 6);
     background-color: #32c85a;
@@ -11,13 +9,13 @@
     padding: 2px;
 }
 
-.catPannelItem {
+.catPanelItem {
     border: 1px solid transparent;
     padding: 0.5rem;
     font-size: 1rem;
 }
 
-.catPannelItem:hover {
+.catPanelItem:hover {
     border: 1px solid rgb(247, 245, 245);
     padding: 0.5rem;
     border-radius: 0.5rem;

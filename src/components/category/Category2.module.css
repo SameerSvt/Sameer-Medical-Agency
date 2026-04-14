@@ -28,6 +28,8 @@
     width: 12vw;
     height: auto;
     /* border: 2px solid black; */
+    /* background-color: rgb(195, 252, 196); */
+    background-color: rgb(232, 229, 229);
     border-radius: 15px;
     margin: 1vw;
     margin-bottom: 0px;
@@ -35,6 +37,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 2vw;
 }
 
 .category2Image {
@@ -44,7 +47,7 @@
 }
 
 .category2Image:hover {
-    box-shadow: 0 0 20px 10px rgb(204, 234, 237);
+    /* box-shadow: 0 0 20px 10px rgb(204, 234, 237); */
     cursor: pointer;
     width: 95%;
 }
