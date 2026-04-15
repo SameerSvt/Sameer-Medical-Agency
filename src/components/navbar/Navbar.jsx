@@ -51,7 +51,7 @@ export default function Navbar({searchTerm, setSearchTerm, setCategoryTerm}) {
 
         <div className={styles.navItems}>
             {navItemsRight.map((item, index) => {
-                return <li key={index} > <Link className={styles.item} to={`/${item?.toLowerCase() == "home" ? '/' : item?.toLowerCase() }`}>{item}</Link></li>
+                return <li className={styles.listing} key={index} > <Link className={styles.item} to={`/${item?.toLowerCase() == "home" ? '/' : item?.toLowerCase() }`}>{item}</Link></li>
             })}
         </div>
         

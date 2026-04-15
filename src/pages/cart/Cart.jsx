@@ -43,7 +43,7 @@ export default function Cart() {
               <div>Delivery Charges:</div> <div>₹49</div>
             </div>
             <div className={`${styles.subtotal} ${styles.discountColor}`}>
-              <div>Discount:</div> <div>₹189</div>
+              <div>Discount:</div> <div>₹140</div>
             </div>
             <hr></hr>
             <div className={`${styles.subtotal} ${styles.totalAmount}`}>

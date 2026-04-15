@@ -1,0 +1,54 @@
+.addressImage {
+    /* border: 2px solid rgb(49, 103, 253); */
+    height: fit-content;
+    width: 50%;
+    position: relative;
+    z-index: -1000;
+    padding: 0 2% 0 2%;
+
+}
+
+.addressImage img {
+    height: 30%;
+    width: auto;
+    position: absolute;
+    top: 7%;
+    z-index: 3;
+    margin-left: 35%;
+}
+
+.address {
+    border: 2px solid rgb(102, 223, 102);
+    border-radius: 1rem;
+    margin-top: 20%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.2rem;
+    padding-bottom: 1.2rem;
+}
+
+.address h1 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 8%;
+}
+
+.address h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 5%;
+}
+
+.address h3 {
+    border: 2px solid gray;
+    border-radius: 0.7rem;
+    font-size: 1.5rem;
+    font-weight: 550;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}

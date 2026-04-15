@@ -12,7 +12,7 @@ export default function Login() {
       <img src="./src/assets/LoginBackground.jpeg" className={styles.loginBackground}></img>
 
       <div className={styles.loginPage}>
-        <div class={styles.leftSection}>
+        <div className={styles.leftSection}>
           <div className={styles.newHere}>NEW HERE ?</div>
           <pre className={styles.leftDescription}>Sign up to acces your history, manage orders and cart.<br></br>
             It's quick and easy !
