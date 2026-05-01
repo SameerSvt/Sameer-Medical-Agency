@@ -1,12 +1,16 @@
 .catPanel {
     width: 100vw;
     color: rgb(6, 6, 6);
-    background-color: #32c85a;
+    background-color: #dadbdb;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    flex-wrap: wrap;
     padding: 2px;
+    overflow-x: scroll;
+}
+
+.catPanel li {
+    list-style: none;
 }
 
 .catPanelItem {
@@ -19,6 +23,13 @@
     border: 1px solid rgb(247, 245, 245);
     padding: 0.5rem;
     border-radius: 0.5rem;
+}
+
+.bannerTesting {
+    width: 94%;
+    margin-left: 3%;
+    margin-right: 3%;
+    border-radius: 1rem;
 }
 
 .bodyHome {
@@ -35,5 +46,39 @@
     width: 100vw;
     margin-bottom: 0px;
     display: flex;
+}
+
+@media (max-width: 768px) {
+    .catPanel {
+        height: auto;
+        gap: 10%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .catPanelItem {
+        height: 100%;
+        /* border: 1px solid black; */
+        padding: 0%;
+        font-size: 0.6rem;
+        padding: 0.2rem;
+        text-align: center;
+        border-radius: 2px;
+    }
+
+    .bodyHome {
+        margin: 0 5% 0 5%;
+    }
+
+    .bannerMiddle {
+        width: 100%;
+        height: auto;
+        flex-grow: 1;
+        border-radius: 0.5rem;
+    }
+
+    .bannerTesting {
+        border-radius: 0.5rem;
+    }
 }
 

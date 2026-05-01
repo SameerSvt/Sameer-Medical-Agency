@@ -1,5 +1,11 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    justify-content: space-between;
+}
+
 .bannerTop {
-    /* max-height: 15vh; */
     width: 100vw;
     display: block;
 }

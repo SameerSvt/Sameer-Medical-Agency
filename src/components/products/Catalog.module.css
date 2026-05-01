@@ -1,5 +1,5 @@
 .catalogBanner {
-    margin: 3rem;
+    margin: 3%;
 }
 
 .catalogBanner img {
@@ -27,9 +27,9 @@
     height: 60vh;
     position: sticky;
     top: 25%;
+    z-index: 0;
     padding: 2rem;
     height: fit-content;
-
 }
 
 .leftSticky h1 {
@@ -49,11 +49,9 @@
     cursor: pointer;
 }
 
-.leftSticky div {
+.spacing {
   margin-bottom: 8%;
 }
-
-
 
 .rightSection {
     /* border: 2px solid rgb(238, 2, 2); */
@@ -61,4 +59,66 @@
     justify-content: space-between;
     width: 80%;
     flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .catalogBanner img {
+        border-radius: 0.5rem;
+    }
+
+    .catalog {
+        flex-direction: column;
+        width: 100vw;
+        margin: 0;
+    }
+
+    .leftSection {
+        width: 96%;
+        margin: 0 2%;
+    }
+
+    .leftSticky {
+        border-radius: 0;
+        padding: 2px;
+        box-shadow: none;
+        /* border: 1px solid black; */
+        margin-bottom: 20px;
+        position: static;
+    }
+
+    .leftSticky h1 {
+        margin-top: 0;
+        font-size: 1rem;
+        margin-bottom: 5px;
+    }
+
+    .filterPhone {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .filterPhone hr{
+        display: none;
+    }
+
+    .filterPhone div {
+        display: none;
+    }
+
+    .filterPhone select {
+        font-size: 0.8rem;
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: 4px;
+        margin: 0;
+        width: 30%;
+    }
+
+    .rightSection {
+        width: 100%;
+        /* border: 2px solid black; */
+    }
+
+
+
 }

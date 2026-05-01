@@ -6,6 +6,8 @@ export default function AboutUs() {
       <div>
         <img src="src/assets/AboutUs.png" className={styles.profileImg}></img>
       </div>
+
+      <div className={styles.working}>Coming Soon</div>
     </div>
   )
 }

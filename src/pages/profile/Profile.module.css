@@ -1,13 +1,7 @@
-.profileImg {
-    width: 100vw;
-    display: flex;
-    margin-top: 20vh;
-}
-
 .profile {
     margin: 4vh 8vw 10vh 8vw;
     width: 84vw;
-    height: 60vh;
+    min-height: 60vh;
     /* border: 2px solid black; */
 }
 
@@ -37,9 +31,10 @@
 .editProfile {
     /* border: 2px solid rgb(153, 0, 255); */
     width: 50%;
-    height: 100%;
+    height: 58.5vh;
     position: relative;
-    z-index: -1;
+    /* z-index: 0; */
+    /* z-index: -1;          */
 }
 
 .setting {
@@ -60,6 +55,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 2;
 }
 
 .editBox h1 {
@@ -85,6 +81,7 @@
     height: 100%;
     padding-left: 3%;
     font-size: 1.5rem;
+    outline: none;
     border: transparent;
    
 }
@@ -117,9 +114,9 @@
 .becomeRetailer {
     /* border: 2px solid rgb(153, 0, 255); */
     width: 50%;
-    height: 100%;
+    height: 58.5vh;
     position: relative;
-    z-index: -1;
+    /* z-index: -1; */
 }
 
 .retailer {
@@ -176,6 +173,52 @@
     justify-content: space-between;
 }
 
+@media (max-width: 768px) {
+    .profile {
+        width: 94%;
+        margin: 3%;
+    }
+
+    .profile h1 {
+        font-size: 1.5rem;
+    }
+
+    .profileContainer {
+        margin-top: 0;
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .leftSection {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .editProfile {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .setting {
+        width: 15%;
+        margin: 5% 0 0 42%;
+    }
+
+    .retailer {
+        width: 22%;
+        margin: 7% 0 0 38%;
+    }
+    
+    .becomeRetailer {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .rightSection {
+        width: 100%;
+        height: fit-content;
+    }
+}
 
 
 

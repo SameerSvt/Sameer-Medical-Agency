@@ -80,5 +80,36 @@
     text-align: center;
     margin-left: 0;
     border-radius: 1.5rem;
+}
 
+@media (max-width: 768px) {
+    .productCard {
+        margin: 15px;
+        width: 100%;
+    }
+
+    .details h1 {
+        font-size: 1.5rem;
+    }
+
+    .details h2 {
+        font-size: 1rem;
+    }
+
+    .details h3 {
+        font-size: 1.2rem;
+    }
+
+    .details h4 {
+        font-size: 0.9rem;
+    }
+
+    .details h5 {
+        font-size: 0.9rem;
+    }
+
+    .details button {
+        font-size: 1rem;
+        width: 90%;
+    }
 }

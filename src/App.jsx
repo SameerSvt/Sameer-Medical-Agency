@@ -17,31 +17,33 @@ function App() {
   const [categoryTerm, setCategoryTerm] = useState("All");
   return (
     <>
-      <img className="bannerTop" src="src/assets/BannerTop.png"></img>
-
-      <Navbar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        setCategoryTerm={setCategoryTerm}
-      />
-
-      <Routes>
-        <Route path="/" element={<Home setCategoryTerm={setCategoryTerm} />} />
-        <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route
-          path="/catalog"
-          element={
-            <Catalog searchTerm={searchTerm} categoryTerm={categoryTerm} />
-          }
-        />
-        <Route path="/uploadprescription" element={<UploadPrescription />} />
-      </Routes>
-
       <div>
+        <img className="bannerTop" src="src/assets/BannerTop.png"></img>
+
+        <Navbar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setCategoryTerm={setCategoryTerm}
+        />
+
+        <Routes>
+          <Route path="/" element={<Home setCategoryTerm={setCategoryTerm} />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/catalog"
+            element={
+              <Catalog searchTerm={searchTerm} categoryTerm={categoryTerm} />
+            }
+          />
+          <Route path="/uploadprescription" element={<UploadPrescription />} />
+        </Routes>
+      </div>
+
+      <div className="footer">
         <img src="src/assets/Footer.png" className="footerImg"></img>
       </div>
     </>

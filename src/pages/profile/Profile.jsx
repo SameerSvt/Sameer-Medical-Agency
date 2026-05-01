@@ -16,6 +16,7 @@ export default function Profile() {
         <div className={styles.profileContainer}>
 
           <div className={styles.leftSection}>
+
             <div className={styles.editProfile}>
               <img className={styles.setting} src="/profile/Edit_Profile.png"></img>
               <div className={styles.editBox}>
@@ -52,6 +53,7 @@ export default function Profile() {
                 <h3>Apply Now</h3>
               </div>
             </div>
+            
           </div>
 
           <div className={styles.rightSection}>

@@ -52,3 +52,14 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+@media (max-width: 768px) {
+    .addressImage {
+        width: 100%;
+    }
+
+    .addressImage img {
+        height: 25%;
+        margin: 5% 0 0 38%;
+    }
+}
