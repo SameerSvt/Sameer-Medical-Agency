@@ -4,10 +4,11 @@ A hybrid B2B (Wholesale) and B2C (Retail) e-commerce web application engineered 
 
 ### 🔗 Live Production Deployment
 <p align="left">
-  <a href="http://localhost:5173">
-    <img src="https://sameer-medical-agency.vercel.app" alt="Live Project" />
+  <a href="http://sameer-medical-agency.vercel.app">
+    <img src="https://img.shields.io/badge/🌐_Launch-Live_Web_Application-00C853?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Live Project" />
   </a>
 </p>
+
 
 ---
 
