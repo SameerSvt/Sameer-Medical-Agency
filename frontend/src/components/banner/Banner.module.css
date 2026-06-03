@@ -1,0 +1,15 @@
+.banners {
+   padding: 3%;
+}
+
+.bannersImg {
+    border: 2px solid transparent;
+    border-radius: 2rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .bannersImg {
+        border-radius: 1rem;
+    }
+}
