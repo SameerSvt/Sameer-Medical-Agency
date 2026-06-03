@@ -81,8 +81,6 @@ SAMEER MEDICAL AGENCY/
 </table>
 
 
-## 🛠️ Tech Stack & Tools
-
 * **Frontend Framework:** React.js, Vite, React Router DOM, Tailwind CSS
 * **Backend Infrastructure:** Node.js, Express.js
 * **Database Management:** MongoDB Atlas, Mongoose ODM
