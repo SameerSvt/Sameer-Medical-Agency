@@ -78,8 +78,8 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
                     {navItemsRight.map((item, index) => {
                         return <li className={styles.listing} key={index} onClick={closeMenu} > <Link className={styles.item} to={`/${item?.toLowerCase() == "home" ? '/' : item?.toLowerCase()}`}>{item}</Link><hr></hr></li>
                     })}
-                </div>}
-
+                </div>
+            }
         </div>
     )
 }

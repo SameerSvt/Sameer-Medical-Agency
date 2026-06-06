@@ -6,3 +6,9 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+@media (max-width: 768px) {
+    * {
+        font-size: 12px;
+    }
+}
+

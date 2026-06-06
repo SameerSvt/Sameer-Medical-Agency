@@ -42,7 +42,7 @@ export default function Home({ setCategoryTerm }) {
         ))}
       </ul>
 
-      <Banner />
+      <Banner onClick={handleCategoryPanelClick("All")}/>
 
       <Category2 setCategoryTerm={setCategoryTerm} />
 
