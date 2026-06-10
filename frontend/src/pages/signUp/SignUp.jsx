@@ -1,7 +1,7 @@
 import styles from './SignUp.module.css'
 import { HiOutlineMail } from "react-icons/hi";
 import { FaPhone, FaKey } from "react-icons/fa6";
-import { IoMdEyeOff } from "react-icons/io";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import { useState } from 'react';
 import axios from "axios"
@@ -19,6 +19,12 @@ export default function SignUp() {
     }
   )
 
+  const [showPassword, setShowPassword] = useState(false)
+
+  function handleEyeIconClick () {
+    setShowPassword(!showPassword)
+  }
+
   function handleOnChange(e) {
     setFormData({...formData,
       [e.target.name]: e.target.value
@@ -28,12 +34,12 @@ export default function SignUp() {
   async function handleOnSubmit(e) {
     e.preventDefault()
     try {
-      await axios.post("/api/v1/users/signup", formData)
-      alert("User created successfully")
-      navigate('/')
+      const response = await axios.post("/api/v1/users/signup", formData)
+      alert(response.data?.message || "User created successfully")
+      navigate('/login')
     } catch (error) {
       console.error(error)
-      alert("Something went wrong. Please try again.")
+      alert(error.response.data?.message || "Something went wrong. Please try again.")
     }
   }
 
@@ -68,10 +74,10 @@ export default function SignUp() {
           </div>
 
           <div className={styles.emailPhone}>
-            <FaKey className={styles.iconKey} />
-            <input type="password" className={styles.password} placeholder="PASSWORD" name="password" value={formData.password} onChange={handleOnChange}></input>
-            <IoMdEyeOff className={styles.iconEyeOff} />
-          </div>
+                      <FaKey className={styles.iconKey} />
+                      <input type={showPassword ? "text" : "password"} className={styles.password} placeholder="PASSWORD" name="password" value={formData.password} onChange={handleOnChange}></input>
+                      {showPassword ? <IoMdEye className={styles.iconEyeOff} onClick={handleEyeIconClick}/> : <IoMdEyeOff className={styles.iconEyeOff} onClick={handleEyeIconClick}/>}
+                    </div>
 
 
           <button className={styles.loginButton}>SIGN UP</button>

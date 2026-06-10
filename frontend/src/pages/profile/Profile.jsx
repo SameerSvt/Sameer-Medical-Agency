@@ -1,5 +1,6 @@
 import styles from './Profile.module.css'
 import ProfileSection from './ProfileSection'
+import { useAuth } from '../../context/AuthContext'
 
 export default function Profile() {
   const dataSet = [
@@ -9,10 +10,12 @@ export default function Profile() {
     { url: 'Logout', name: 'LOGOUT', desc: ".......", btn: 'Logout' }
   ]
 
+  const {user} = useAuth()
+
   return (
     <>
       <div className={styles.profile}>
-        <h1>Welcome, User</h1>
+        <h1>Welcome, {user?.fullName || "Guest"}</h1>
         <div className={styles.profileContainer}>
 
           <div className={styles.leftSection}>
@@ -22,10 +25,10 @@ export default function Profile() {
               <div className={styles.editBox}>
                 <h1>Edit Profile</h1>
                 <div className={styles.edit}>
-                  Name: <input type="text" placeholder='Name'></input>
+                  Name: <input type="text" placeholder={user?.fullName || "Guest"}></input>
                 </div>
                 <div className={styles.edit}>
-                  Age: <input type="number" placeholder='24'></input>
+                  Phone: <input type="number" placeholder={user?.phone}></input>
                 </div>
                 <img src="/profile/Avatar.png"></img>
                 <p>John Doe</p>
@@ -64,6 +67,8 @@ export default function Profile() {
 
         </div>
       </div>
+
+      
     </>
   )
 }

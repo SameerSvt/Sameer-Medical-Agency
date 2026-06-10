@@ -30,7 +30,7 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
         navigate('/uploadprescription')
     }
 
-    function hadnleSearchIconClick() {
+    function handleSearchIconClick() {
         setCategoryTerm('All')
         if (searchTerm.length > 0) {
             navigate('/catalog')
@@ -43,6 +43,13 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
         setSearchTerm(value)
     }
 
+    //Enter key invoked for searching
+    const handleEnterKeyClick = (e) => {
+        if(e.key === "Enter") {
+            handleSearchIconClick()
+        }
+    }
+
     return (
         <div className={styles.navbar}>
 
@@ -51,8 +58,8 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
             <img src="Logo.png" className={styles.logoPhone} onClick={handleHomeClick}></img>
 
             <div className={styles.search}>
-                <input type="text" placeholder='Search your medicines' value={searchTerm} onChange={handleOnSearchChange} />
-                <FaSearch className={styles.iconSearch} onClick={hadnleSearchIconClick} />
+                <input type="text" placeholder='Search your medicines' value={searchTerm} onChange={handleOnSearchChange} onKeyDown={handleEnterKeyClick} />
+                <FaSearch className={styles.iconSearch} onClick={handleSearchIconClick} />
             </div>
 
             <div> {!isMenuOpen ? <IoMenu className={styles.menu} onClick={handleMenuClick} /> : <IoClose className={styles.menu} onClick={handleMenuClick} />}</div>

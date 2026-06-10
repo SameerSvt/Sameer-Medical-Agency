@@ -3,6 +3,8 @@ import dotenv from "dotenv"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
+import { errorHandler } from "./middlewares/error.middleware.js"
+
 const app = express()
 
 app.use(cors())
@@ -17,5 +19,8 @@ import userRouter from "./routes/user.routes.js"
 
 //routes declaration
 app.use("/api/v1/users", userRouter)
+
+
+app.use(errorHandler)
 
 export {app}

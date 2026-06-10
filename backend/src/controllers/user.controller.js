@@ -1,8 +1,25 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
+import { asyncHandler } from "../utils/asyncHandler.js"
 import {User} from "../models/user.model.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
-import { validateEmail } from "../utils/validateEmail.js";
+
+const generateAccessTokenAndRefreshToken = async (userId) => {
+    try {
+        const user = await User.findById(userId)
+    
+        const accessToken = user.generateAccessToken()
+        const refreshToken = user.generateRefreshToken()
+    
+        user.refreshToken = refreshToken
+    
+        await user.save({validateBeforeSave: false})
+    
+        return {accessToken, refreshToken}
+    } catch (error) {
+        throw new ApiError(500, "Something went wrong while generating referesh and access token")
+    }
+}
+
 
 
 const signUpUser = asyncHandler( async (req, res) => {
@@ -14,7 +31,6 @@ const signUpUser = asyncHandler( async (req, res) => {
     if([fullName, email, phone, password].some((field) => !field || field.trim() === "")) {
         throw new ApiError(400, "All fields are required")
     }
-    validateEmail(email)
     const phoneStr = String(phone).trim()
     if(phoneStr.length !== 10) {
         throw new ApiError(400, "Phone number must be of 10 digits")
@@ -38,6 +54,7 @@ const signUpUser = asyncHandler( async (req, res) => {
 
     return res.status(201).json(new ApiResponse(201, createdUser, "User sign up SUCCESS"))
 })
+
 
 const loginUser = asyncHandler( async(req, res) => {
     const {credential, password} = req.body
@@ -65,17 +82,80 @@ const loginUser = asyncHandler( async(req, res) => {
 
     const isPasswordValid = await user.isPasswordCorrect(passwordStr)
 
-    if ( isPasswordValid ) {
-        console.log("Login Successful")
-        const loggedinUser = await User.findById(user._id).select("-password -refreshToken")
-        return res.status(200).json(new ApiResponse(200, loggedinUser, "Login Successfull from backend"))
-    } else {
-        console.log("Incorrect Password");
-        throw new ApiError(400, "Incorrect Password from backend")
+    if(!isPasswordValid) {
+        throw new ApiError(400, "Incorrect Password")
     }
+
+    const {accessToken, refreshToken} = await generateAccessTokenAndRefreshToken(user._id)
+
+    //const loggedinUser = await User.findById(user._id).select("-password -refreshToken")
+    const loggedinUser = user.toObject()
+    delete loggedinUser.password
+    delete loggedinUser.refreshToken
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    console.log("Login Successfull")
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+        new ApiResponse(
+            200, 
+            {
+                user: loggedinUser,
+                accessToken,
+                refreshToken
+            },
+            "Login Successfull"
+    ))
+
 })
+
+const getCurrentUser = asyncHandler(async(req, res) => {
+    return res
+    .status(200)
+    .json(new ApiResponse(
+        200,
+        req.user,
+        "User fetched successfully"
+    ))
+})
+
+const logoutUser = asyncHandler( async (req, res) => {
+    
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $unset: {
+                refreshToken: 1
+            }
+        },
+        { new: true }
+    )
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(
+        200, {}, "User logged out"
+    ))
+})
+
 
 export {
     signUpUser,
-    loginUser
+    loginUser,
+    getCurrentUser,
+    logoutUser
 }

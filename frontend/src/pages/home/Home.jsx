@@ -18,7 +18,7 @@ export default function Home({ setCategoryTerm }) {
     "Pediatric Care",
     "Diabetes Care",
     "Diagnostic Tools",
-     "Life Saving Medicines",
+    "Life Saving Medicines",
     "Antibiotics"
   ];
 
@@ -42,7 +42,7 @@ export default function Home({ setCategoryTerm }) {
         ))}
       </ul>
 
-      <Banner onClick={handleCategoryPanelClick("All")}/>
+      <Banner />
 
       <Category2 setCategoryTerm={setCategoryTerm} />
 
@@ -56,7 +56,7 @@ export default function Home({ setCategoryTerm }) {
 
       <div className={styles.bodyHome}>
 
-        <div><img src="myAssets/Wellness.png" className={styles.bannerMiddle}></img></div>
+        <div><img src="myAssets/Wellness.png" className={styles.bannerMiddle} onClick={() => { handleCategoryPanelClick("All")}}></img></div>
 
         <InfoSection />
 

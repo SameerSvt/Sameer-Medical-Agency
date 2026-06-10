@@ -1,16 +1,18 @@
 import styles from './Login.module.css'
 import { HiOutlineMail } from "react-icons/hi";
 import { FaPhone, FaKey } from "react-icons/fa6";
-import { IoMdEyeOff } from "react-icons/io";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from "axios"
+import { useAuth } from '../../context/AuthContext';
 
 
 export default function Login() {
    const navigate = useNavigate()
+   const {login} = useAuth()
 
    const [formData, setFormData] = useState(
     {
@@ -18,6 +20,11 @@ export default function Login() {
       password: ''
     }
   )
+  const [showPassword, setShowPassword] = useState(false)
+
+  function handleEyeIconClick () {
+    setShowPassword(!showPassword)
+  }
 
   function handleOnChange(e) {
     setFormData({...formData,
@@ -29,14 +36,12 @@ export default function Login() {
     e.preventDefault()
     try {
       const response = await axios.post("/api/v1/users/login", formData)
+      login(response.data.data)
       alert(response.data?.message || "Login successfully")
       navigate('/')
     } catch (error) {
       console.error(error)
-      alert(error.response?.data?.message ||          // Standard Express structure
-      error.response?.data?.error?.message ||    // Common custom middleware nesting
-      // error.response?.data ||                    // Fallback to raw string/object
-      "Something went wrong. Please try again.")
+      alert(error.response?.data?.message || "Something went wrong. Please try again.")
     }
   }
   
@@ -73,15 +78,13 @@ export default function Login() {
             <a href="#">FORGOT PASSWORD ?</a>
           </div>
 
-
           <div className={styles.emailPhone}>
             <FaKey className={styles.iconKey} />
-            <input type="password" className={styles.password} placeholder="PASSWORD" name="password" value={formData.password} onChange={handleOnChange}></input>
-            <IoMdEyeOff className={styles.iconEyeOff} />
+            <input type={showPassword ? "text" : "password"} className={styles.password} placeholder="PASSWORD" name="password" value={formData.password} onChange={handleOnChange}></input>
+            {showPassword ? <IoMdEye className={styles.iconEyeOff} onClick={handleEyeIconClick}/> : <IoMdEyeOff className={styles.iconEyeOff} onClick={handleEyeIconClick}/>}
           </div>
 
-
-          <button className={styles.loginButton}>LOGIN</button>
+          <button className={styles.loginButton} type="submit">LOGIN</button>
 
 
           <div className={styles.rememberMe}>

@@ -19,8 +19,8 @@ export default function category2({ setCategoryTerm }) {
         { url: 'Diagnostic.png', name: "Diagnostic Tools", desc: 'Fast results for accurate monitoring.' }
     ]
 
-    async function handleOnCategoryBoxClick(categoryName) {
-        await setCategoryTerm(categoryName)
+    function handleOnCategoryBoxClick(categoryName) {
+        setCategoryTerm(categoryName)
         navigate('/catalog')
     }
 

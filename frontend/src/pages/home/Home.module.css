@@ -42,6 +42,10 @@
     border-radius: 1rem;
 } 
 
+.bannerMiddle:hover {
+    cursor: pointer;
+}
+
 .footerImg {
     width: 100vw;
     margin-bottom: 0px;

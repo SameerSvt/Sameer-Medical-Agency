@@ -3,7 +3,7 @@
     height: fit-content;
     width: 50%;
     position: relative;
-    z-index: -1000;
+    /* z-index: -1000; */
     padding: 0 2% 0 2%;
 
 }
@@ -51,6 +51,8 @@
     padding: 0.5rem 1rem 0.5rem 1rem;
     margin-left: auto;
     margin-right: auto;
+    z-index: 2000;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
