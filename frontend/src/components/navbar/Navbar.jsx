@@ -11,6 +11,7 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
     const navigate = useNavigate()
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [searchBox, setSearchBox] = useState("")
 
     function handleMenuClick() {
         setIsMenuOpen(!isMenuOpen)
@@ -30,17 +31,17 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
         navigate('/uploadprescription')
     }
 
-    function handleSearchIconClick() {
+    function handleSearchIconClick(e) {
         setCategoryTerm('All')
+        setSearchTerm(searchBox)
         if (searchTerm.length > 0) {
             navigate('/catalog')
         }
     }
 
     function handleOnSearchChange(e) {
-        setCategoryTerm('All')
         const value = e.target.value
-        setSearchTerm(value)
+        setSearchBox(value)
     }
 
     //Enter key invoked for searching
@@ -49,6 +50,7 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
             handleSearchIconClick()
         }
     }
+    
 
     return (
         <div className={styles.navbar}>
@@ -58,7 +60,7 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
             <img src="Logo.png" className={styles.logoPhone} onClick={handleHomeClick}></img>
 
             <div className={styles.search}>
-                <input type="text" placeholder='Search your medicines' value={searchTerm} onChange={handleOnSearchChange} onKeyDown={handleEnterKeyClick} />
+                <input type="text" placeholder='Search your medicines' value={searchBox} onChange={handleOnSearchChange} onKeyDown={handleEnterKeyClick} />
                 <FaSearch className={styles.iconSearch} onClick={handleSearchIconClick} />
             </div>
 

@@ -1,9 +1,30 @@
 import React from 'react'
 import styles from './Catalog.module.css'
 import ProductCard from './ProductCard'
-import { Products } from './Products'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+
 
 export default function Catalog({ searchTerm, categoryTerm }) {
+  const [Products, setProducts] = useState([])
+
+  useEffect(() => {
+   const fetchProducts = async () => {
+    try {
+      const response = await axios.get("/api/v1/products/get-all-products")
+      if (!response?.data?.data) {
+        console.log("Product not found")
+        setProducts([])
+      }
+      setProducts(response.data.data)
+    } catch (error) {
+      console.error("Unable to fetch product from backend ", error?.response?.data?.message || error.message)
+      setProducts([])
+    }
+  }
+  fetchProducts()
+  }, [])
+
 
   const filteredProducts = Products.filter((item) => {
     const matchesSearch = item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -83,7 +104,7 @@ export default function Catalog({ searchTerm, categoryTerm }) {
 
           {
             filteredProducts.map((item) => (
-              <ProductCard product={item} key={item.id} />
+              <ProductCard product={item} key={item._id} />
             ))
           }
 

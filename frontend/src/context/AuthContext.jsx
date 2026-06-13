@@ -10,6 +10,12 @@ export default function AuthProvider ({children}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [loading, setLoading] = useState(true)
 
+    const login = (userData) => {
+        setUser(userData)
+        setIsLoggedIn(true)
+        console.log("user data stored using login")
+    }
+
     useEffect( () => {
 
         const checkExistingSession = async () => {
@@ -30,13 +36,7 @@ export default function AuthProvider ({children}) {
         }
 
         checkExistingSession()
-    }, [isLoggedIn])
-
-    const login = (userData) => {
-        setUser(userData)
-        setIsLoggedIn(true)
-        console.log("user data stored using login")
-    }
+    }, [login])
 
     const logout = async () => {
         try {

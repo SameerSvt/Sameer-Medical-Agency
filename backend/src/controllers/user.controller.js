@@ -20,15 +20,13 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
     }
 }
 
-
-
 const signUpUser = asyncHandler( async (req, res) => {
 
     //getting data
     const {fullName, email, phone, password} = req.body
 
     //validation
-    if([fullName, email, phone, password].some((field) => !field || field.trim() === "")) {
+    if([fullName, email, phone, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All fields are required")
     }
     const phoneStr = String(phone).trim()
@@ -151,7 +149,6 @@ const logoutUser = asyncHandler( async (req, res) => {
         200, {}, "User logged out"
     ))
 })
-
 
 export {
     signUpUser,

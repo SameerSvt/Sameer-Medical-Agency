@@ -5,14 +5,14 @@ export default function ProductCard({product}) {
   return (
     <div className={styles.productCard}>
         <div className={styles.productCardImage}>
-            <img src={product.imageUrl}></img>
+            <img src={product.image}></img>
         </div>
 
         <div className={styles.details}>
-            <h1>{product.name}</h1>
-            <h2>{product.salt}</h2>
+            <h1>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h1>
+            <h2>{product.saltComposition.charAt(0).toUpperCase() + product.saltComposition.slice(1)}</h2>
             <div className={styles.pricing}>
-                <h3>₹{product.price}</h3> <h4>MRP {product.mrp}</h4> <h5>{product.discount}% off</h5>
+                <h3>₹{product.retailPrice}</h3> <h4>MRP {product.mrp}</h4> <h5>{product.discountPercentage}% off</h5>
             </div>
             <button>Add to Cart</button><br/>
         </div>

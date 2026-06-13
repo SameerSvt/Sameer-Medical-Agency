@@ -12,7 +12,6 @@ const router = Router()
 
 router.route("/signUp").post(signUpUser)
 router.route("/login").post(loginUser)
-
 router.route("/current-user").get(verifyJWT, getCurrentUser)
 router.route("/logout").post(verifyJWT, logoutUser)
 
