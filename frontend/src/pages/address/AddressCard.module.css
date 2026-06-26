@@ -1,0 +1,33 @@
+.deliveryDetails {
+  padding: 1rem;
+  /* box-shadow: 0 0 20px 5px rgb(133, 132, 132); */
+  border: 2px solid gray;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 5px;
+}
+
+.deliveryDetails h3 {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.deliveryDetails h1, p {
+  font-size: 1.2rem;
+  /* font-weight: 400; */
+}
+
+.addressButtons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.addressButton {
+  padding: 0.5rem 3rem;
+  border: transparent;
+  border-radius: 0.5rem;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}

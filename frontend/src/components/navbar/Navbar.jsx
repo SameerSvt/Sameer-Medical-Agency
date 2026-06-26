@@ -50,7 +50,6 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
             handleSearchIconClick()
         }
     }
-    
 
     return (
         <div className={styles.navbar}>

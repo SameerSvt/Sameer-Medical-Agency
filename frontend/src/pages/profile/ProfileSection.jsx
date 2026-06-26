@@ -15,6 +15,12 @@ export default function ProfileSection({ data }) {
                 navigate('/')
             }
         }
+        if(data.btn === "Edit Address") {
+            navigate("/address")
+        }
+        if(data.btn === "Orders History") {
+            navigate("/ordersHistory")
+        }
     };
 
     return (

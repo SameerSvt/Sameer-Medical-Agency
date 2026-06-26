@@ -3,9 +3,8 @@
     height: fit-content;
     width: 50%;
     position: relative;
-    /* z-index: -1000; */
     padding: 0 2% 0 2%;
-
+    margin-bottom: 35px;
 }
 
 .addressImage img {

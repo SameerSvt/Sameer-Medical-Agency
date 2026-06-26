@@ -1,7 +1,18 @@
 import React from 'react'
 import styles from './ProductCard.module.css'
+import axios from "axios"
 
 export default function ProductCard({product}) {
+
+    async function handleAddToCartClick(productId, quantity) {
+        try {
+            const response = await axios.post("/api/v1/carts/add-to-cart", {productId, quantity})
+            alert("Item added to cart successfully")
+        } catch (error) {
+            console.log("Something went wrong while adding item to cart", error)
+        }
+    }
+
   return (
     <div className={styles.productCard}>
         <div className={styles.productCardImage}>
@@ -14,7 +25,7 @@ export default function ProductCard({product}) {
             <div className={styles.pricing}>
                 <h3>₹{product.retailPrice}</h3> <h4>MRP {product.mrp}</h4> <h5>{product.discountPercentage}% off</h5>
             </div>
-            <button>Add to Cart</button><br/>
+            <button onClick={() => handleAddToCartClick(product._id, 1)}>Add to Cart</button><br/>
         </div>
     </div>
   )

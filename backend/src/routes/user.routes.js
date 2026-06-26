@@ -1,4 +1,5 @@
 import {Router} from "express"
+import { verifyJWT } from "../middlewares/auth.middleware.js"
 import {
     signUpUser,
     loginUser,
@@ -6,7 +7,7 @@ import {
     logoutUser
 } from "../controllers/user.controller.js"
 
-import { verifyJWT } from "../middlewares/auth.middleware.js"
+
 
 const router = Router()
 

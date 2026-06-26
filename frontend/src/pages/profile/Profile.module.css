@@ -170,7 +170,7 @@
     /* border: 2px solid rgb(184, 184, 21); */
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    
 }
 
 @media (max-width: 768px) {

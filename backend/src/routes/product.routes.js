@@ -1,7 +1,8 @@
 import {Router} from "express"
 import {upload} from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js"
-import { listProduct,
+import { 
+    listProduct,
     getAllProducts
  } from "../controllers/product.controller.js"
 

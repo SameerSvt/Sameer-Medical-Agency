@@ -101,9 +101,12 @@
   font-size: 3rem;
 }
 
-.quantity a {
+.quantity h6 {
   font-size: 1.5rem;
   color: rgb(245, 28, 13);
+  text-decoration: underline;
+  font-weight: 200;
+  cursor: pointer;
 }
 
 .hrDivide {

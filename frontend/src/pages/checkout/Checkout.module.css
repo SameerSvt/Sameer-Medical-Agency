@@ -1,0 +1,199 @@
+.checkoutPage {
+  /* border: 2px solid black; */
+  height: 71vh;
+  display: flex;
+  justify-content: space-between;
+  margin: 5vh 6vw 3vh 6vw;
+}
+
+.leftContainer {
+  background-color: transparent;
+  /* border: 2px solid black; */
+  width: 30%;
+}
+
+.address {
+  margin-bottom: 50px;
+  /* border: 2px solid black; */
+  box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.address h6 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.deliveryDetails {
+  padding: 1rem;
+}
+
+.deliveryDetails h3 {
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.deliveryDetails h1 {
+  font-family: 1rem;
+  font-weight: 400;
+}
+
+.addressButtons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.addressButton {
+  padding: 0.5rem 3rem;
+  border: transparent;
+  border-radius: 0.5rem;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+
+.productContainer {
+  box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.productContainer h6 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.orderItems {
+  padding: 1rem;
+  border-radius: 1rem;
+  min-height: 34vh;
+  max-height: 34vh;
+  overflow-y: scroll;
+}
+
+.middleContainer {
+  background-color: transparent;
+  /* border: 2px solid black; */
+  height: 100%;
+  width: 30%;
+}
+
+.payments {
+    box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+  /* border: 2px solid blue; */
+  padding: 1rem;
+  border-radius: 1rem; 
+}
+
+.payments h6 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.payments hr {
+  margin-bottom: 1rem;
+}
+
+.paymentMethod {
+  padding: 1rem;
+}
+
+.cardPayment {
+  /* border: 2px solid black; */
+  margin-bottom: 3rem;
+}
+
+.cardPayment label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cardPayment input {
+  height: 20px;
+  width: 20px;
+}
+
+.cardPayment span {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-left: 7px;
+}
+
+.cardPayment img {
+  height: 50px;
+  margin-top: 20px;
+  margin-left: 28px;
+}
+
+.cardPayment select {
+  margin-top: 1.2rem;
+  margin-left: 29px;
+  width: 80%;
+  height: 30px;
+}
+
+.rightContainer {
+  background-color: transparent;
+  /* border: 2px solid black; */
+  height: 100%;
+  width: 30%;
+}
+
+.addressButton {
+  display: flex;
+}
+
+/*order summary */
+.orderSummary {
+  box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+  /* border: 2px solid blue; */
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.orderSummary h1 {
+  font-size: 2rem;
+  text-align: center;
+  padding: 0.5rem;
+  margin-bottom: 2vh;
+}
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+}
+
+.subtotal div {
+  font-size: 1.5rem;
+}
+
+.discountColor {
+  color: green;
+}
+
+.totalAmount {
+  margin-top: 2vh;
+  font-weight: 600;
+}
+
+.placeOrderButton {
+  width: 100%;
+  padding: 1rem;
+  background-color: green;
+  color: white;
+  text-align: center;
+  font-size: 1.4rem;
+  border-radius: 2rem;
+  border-color: transparent;
+  margin: 1vh 0 2vh 0;
+  cursor: pointer;
+}
+
+.orderSummary img {
+  width: 100%;
+  height: auto;
+}

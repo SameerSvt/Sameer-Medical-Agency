@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext'
 export default function Profile() {
   const dataSet = [
     { url: 'Address', name: 'ADDRESS BOOK', desc: "Kanpur UP, India", btn: 'Edit Address' },
-    { url: 'My_Orders', name: 'MY ORDERS', desc: 'Recent Orders (3)', btn: 'View Orders History' },
+    { url: 'My_Orders', name: 'MY ORDERS', desc: 'Recent Orders (3)', btn: 'Orders History' },
     { url: 'Help', name: 'NEED HELP', desc: "Support & FAQs", btn: 'Contact Support' },
     { url: 'Logout', name: 'LOGOUT', desc: ".......", btn: 'Logout' }
   ]

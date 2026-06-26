@@ -83,12 +83,14 @@
   font-size: 1.6rem;
   margin: 0.8rem;
   color: rgb(178, 181, 10);
+  cursor: pointer;
 }
 
 .iconEyeOff {
   font-size: 1.9rem;
   margin: 0.8rem;
   color: rgb(89, 89, 91);
+  cursor: pointer;
 }
 
 .loginButton {
@@ -99,6 +101,7 @@
   font-size: 1.4rem;
   font-weight: 500;
   color: white;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

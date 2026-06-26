@@ -19,10 +19,16 @@ const userSchema = new Schema({
         gstNumber: { type: String, trim: true }
     },
     address: {
-        street: { type: String },
-        city: { type: String },
-        state: { type: String },
-        country: { type: String, default: "India" }
+        state: { type: String, required: true },
+        pincode: { type: Number, required: true },
+        city: { type: String, required: true },
+        areaDetails: { type: String, required: true },
+        landmark: { type: String, required: true }
+
+        // street: { type: String },
+        // city: { type: String },
+        // state: { type: String },
+        // country: { type: String, default: "India" }
     },
     refreshToken: {
         type: String
