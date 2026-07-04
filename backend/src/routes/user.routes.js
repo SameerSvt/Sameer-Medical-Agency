@@ -4,7 +4,8 @@ import {
     signUpUser,
     loginUser,
     getCurrentUser,
-    logoutUser
+    logoutUser,
+    selectAddress
 } from "../controllers/user.controller.js"
 
 
@@ -15,5 +16,6 @@ router.route("/signUp").post(signUpUser)
 router.route("/login").post(loginUser)
 router.route("/current-user").get(verifyJWT, getCurrentUser)
 router.route("/logout").post(verifyJWT, logoutUser)
+router.route("/select-address").patch(verifyJWT, selectAddress)
 
 export default router

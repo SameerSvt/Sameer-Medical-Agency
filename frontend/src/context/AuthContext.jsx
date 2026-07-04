@@ -10,6 +10,7 @@ export default function AuthProvider ({children}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [loading, setLoading] = useState(true)
 
+
     const login = (userData) => {
         setUser(userData)
         setIsLoggedIn(true)
@@ -36,7 +37,7 @@ export default function AuthProvider ({children}) {
         }
 
         checkExistingSession()
-    }, [login])
+    }, [])
 
     const logout = async () => {
         try {

@@ -1,17 +1,26 @@
 import styles from './AddressCard.module.css'
+import axios from 'axios'
+import { useState } from 'react'
 
 
-export default function AddressCard() {
+export default function AddressCard({ data, activeAddressId, selectAddress }) {
+
+    async function handleSelectAddressClick(addressId) {
+       await selectAddress(addressId)
+    }
+
+    const isSelected = activeAddressId === data._id
+
     return (
-        <div className={styles.deliveryDetails}>
-            <h3>Sameer Srivastav</h3>
-            <p>Nirankari Satsang Bhawan, Bethra
-                Uttar Pradesh, Sultanpur 228131</p>
-            <p> Contact: 9823257694</p>
+        <div className={`${styles.deliveryDetails} ${isSelected ? styles.deliveryDetailsOnSelect : ''}`}>
+            <h3>{data.name}</h3>
+            <p>{`${data.landmark}, ${data.areaDetails},
+                ${data.city} - ${data.state} (${data.pincode})`}</p>
+            <p> Contact: {data.contact}</p>
 
             <div className={styles.addressButtons}>
                 <button className={styles.addressButton}>Edit</button>
-                <button className={styles.addressButton}>Select</button>
+                <button className={styles.addressButton} disabled={isSelected} style={isSelected ? {backgroundColor: "gray"} : {}} onClick={() => handleSelectAddressClick(data._id)}>{isSelected ? "Selected" : "Select"}</button>
             </div>
         </div>
     )

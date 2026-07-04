@@ -34,6 +34,10 @@
   font-size: 1.1rem;
 }
 
+.deliveryDetails p {
+  font-size: 1rem;
+}
+
 .deliveryDetails h1 {
   font-family: 1rem;
   font-weight: 400;
@@ -43,6 +47,7 @@
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .addressButton {
@@ -52,6 +57,9 @@
   background-color: green;
   color: white;
   cursor: pointer;
+  flex: 23;
+  display: flex;
+  justify-content: center;
 }
 
 .productContainer {

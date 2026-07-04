@@ -5,6 +5,10 @@
     justify-content: space-between;
 }
 
+.Toaster {
+    z-index: 20000;
+}
+
 .bannerTop {
     width: 100vw;
     display: block;

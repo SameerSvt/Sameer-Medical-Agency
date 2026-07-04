@@ -7,29 +7,21 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     phone: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true },
-    role: {
-        type: String,
-        enum: ["customer", "retailer", "admin"],
-        default: "customer"
+    activeAddressId: {
+        type: Schema.Types.ObjectId,
+        ref: "Address"
     },
-    isVerifiedRetailer: { type: Boolean, default: false },
-    businessDetails: {
-        firmName: { type: String, trim: true },
-        drugLicenseNumber: { type: String, trim: true },
-        gstNumber: { type: String, trim: true }
-    },
-    address: {
-        state: { type: String, required: true },
-        pincode: { type: Number, required: true },
-        city: { type: String, required: true },
-        areaDetails: { type: String, required: true },
-        landmark: { type: String, required: true }
-
-        // street: { type: String },
-        // city: { type: String },
-        // state: { type: String },
-        // country: { type: String, default: "India" }
-    },
+    // role: {
+    //     type: String,
+    //     enum: ["customer", "retailer", "admin"],
+    //     default: "customer"
+    // },
+    // isVerifiedRetailer: { type: Boolean, default: false },
+    // businessDetails: {
+    //     firmName: { type: String, trim: true },
+    //     drugLicenseNumber: { type: String, trim: true },
+    //     gstNumber: { type: String, trim: true }
+    // },
     refreshToken: {
         type: String
     }

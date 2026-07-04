@@ -115,13 +115,18 @@ const loginUser = asyncHandler( async(req, res) => {
 })
 
 const getCurrentUser = asyncHandler(async(req, res) => {
-    return res
-    .status(200)
-    .json(new ApiResponse(
-        200,
-        req.user,
-        "User fetched successfully"
-    ))
+
+    let user = req.user
+
+    if(req.query.populate === "address") {
+        user = await req.user.populate("activeAddressId")
+    }
+    
+    if(!user) {
+        throw new ApiError(400, "Unable to get Address")
+    }
+
+    return res.status(200).json(new ApiResponse(200, user, "User fetched Successfully"))
 })
 
 const logoutUser = asyncHandler( async (req, res) => {
@@ -150,9 +155,34 @@ const logoutUser = asyncHandler( async (req, res) => {
     ))
 })
 
+const selectAddress = asyncHandler( async (req, res) => {
+    const {addressId} = req.body
+
+    if(!addressId) {
+        throw new ApiError(400, "Address Id is required")
+    }
+
+    const updatedAddress = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                activeAddressId: addressId
+            }
+        },
+        {returnDocument: "after"}
+    ).populate("activeAddressId")
+
+    if(!updatedAddress) {
+        throw new ApiError(500, "Unable to select address")
+    }
+
+    res.status(200).json(new ApiResponse(200, updatedAddress.activeAddressId, "Address Selected"))
+})
+
 export {
     signUpUser,
     loginUser,
     getCurrentUser,
-    logoutUser
+    logoutUser,
+    selectAddress
 }

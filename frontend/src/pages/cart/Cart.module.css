@@ -48,6 +48,11 @@
   font-size: 2rem;
 }
 
+.addressButtons {
+  display: flex;
+  gap: 10px;
+}
+
 .addressButton {
   width: 100%;
   padding: 0.5rem;
@@ -58,6 +63,31 @@
   border-radius: 0.5rem;
   border-color: transparent;
   cursor: pointer;
+}
+
+.address {
+  box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+  border-radius: 1rem;
+  margin-bottom: 2vh;
+  padding: 1rem;
+}
+
+.address h6{
+  font-size: 1.5rem;
+}
+
+.info {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.address h4 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.address p {
+  font-size: 1rem;
 }
 
 .orderSummary {

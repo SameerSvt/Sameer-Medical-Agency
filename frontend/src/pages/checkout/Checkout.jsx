@@ -1,25 +1,81 @@
 import React from 'react';
 import styles from './Checkout.module.css';
 import OrderReviewCard from './OrderReviewCard';
+import axios from 'axios'
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Checkout() {
+  const [cartItems, setCartItems] = useState([])
+  const [address, setAddress] = useState({})
+  const [billingDetails, setBillingDetails] = useState({})
+  const [change, setChange] = useState(false)
+  const [paymentOption, setPaymentOption] = useState("")
+  const navigate = useNavigate()
+
+  async function refreshCart() {
+    try {
+      const response = await axios.get("/api/v1/carts/fetch-cart")
+        if (response) {
+          setCartItems(response?.data?.data?.items)
+        }
+    } catch (error) {
+      console.log("Error occure while fetching cart")
+    }
+  }
+
+  useEffect(() => {
+    async function fetchCart() {
+      try {
+        const response = await axios.get("/api/v1/carts/fetch-cart")
+        if (response) {
+          setCartItems(response?.data?.data?.items)
+        }
+
+        const billingResponse = await axios.get("/api/v1/carts/billing-details")
+        if (billingResponse) {
+          setBillingDetails(billingResponse.data?.data)
+        }
+
+        const getUser = await axios.get("/api/v1/users/current-user?populate=address")
+        if (getUser) {
+          setAddress(getUser.data?.data?.activeAddressId)
+        }
+      } catch (error) {
+        console.log("Error occure while fetching cart")
+      }
+    }
+    fetchCart()
+  }, [change])
+
+  async function placeOrder() {
+    try {
+      const response = await axios.post("/api/v1/orders/checkout", {paymentOption})
+      if(response) {
+        refreshCart()
+        alert(response.data?.message || "Order Placed Successufully")
+        navigate("/ordersHistory")
+      }
+    } catch (error) {
+      alert(error.response.data.message)
+      console.error("Unable to place Order", error)
+    }
+  }
+
   return (
     <div className={styles.checkoutPage}>
-      <div className={styles.leftContainer}>
 
+      <div className={styles.leftContainer}>
         <div className={styles.address}>
           <h6>Deliver To</h6>
           <hr></hr>
           <div className={styles.deliveryDetails}>
-            <h3>Sameer Srivastav</h3>
-            <p>Nirankari Satsang Bhawan, Bethra
-              Uttar Pradesh, Sultanpur 228131</p>
-            <h1> Contact: 9823257694</h1>
-
+            <h3>{address?.name}</h3>
+            <p>{`${address?.landmark}, ${address?.areaDetails}, ${address?.city}, ${address?.state}, ${address?.pincode}`}</p>
+            <h1> Contact: {address?.contact}</h1>
             <div className={styles.addressButtons}>
-
-              <button className={styles.addressButton}>Edit</button>
-              <button className={styles.addressButton}>Add New Address</button>
+              {/* <button className={styles.addressButton} onClick={() => navigate("/address")}>Edit</button> */}
+              <button className={styles.addressButton} onClick={() => navigate("/address")}>Change Address</button>
             </div>
           </div>
 
@@ -29,15 +85,11 @@ export default function Checkout() {
           <h6>Order Review</h6>
           <hr></hr>
           <div className={styles.orderItems}>
-            <OrderReviewCard/>
-            <OrderReviewCard/>
-            <OrderReviewCard/>
-            <OrderReviewCard/>
-            <OrderReviewCard/>
-            <OrderReviewCard/>
+            {cartItems?.map((item) => (
+              <OrderReviewCard key={item._id} data={item} change={change} setChange={setChange} />
+            ))}
           </div>
         </div>
-        
       </div>
 
       <div className={styles.middleContainer}>
@@ -47,7 +99,7 @@ export default function Checkout() {
           <div className={styles.paymentMethod}>
             <div className={styles.cardPayment}>
               <label>
-                <input type="radio" name="paymentMethod"></input> <span> Credit/Debit Card </span>
+                <input type="radio" name="paymentMethod" value="Credit/Debit Card" checked={paymentOption === "Credit/Debit Card"} onChange={(e) => setPaymentOption(e.target.value)}></input> <span> Credit/Debit Card </span>
               </label>
               <div>
                 <img src="myAssets/cardPayment.png"></img>
@@ -56,7 +108,7 @@ export default function Checkout() {
 
             <div className={styles.cardPayment}>
               <label>
-                <input type="radio" name="paymentMethod"></input> <span> Net Banking </span>
+                <input type="radio" name="paymentMethod" value="Net Banking" checked={paymentOption === "Net Banking"} onChange={(e) => setPaymentOption(e.target.value)}></input> <span> Net Banking </span>
               </label>
               <div>
                 <select>
@@ -70,7 +122,7 @@ export default function Checkout() {
 
             <div className={styles.cardPayment}>
               <label>
-                <input type="radio" name="paymentMethod"></input> <span> UPI </span>
+                <input type="radio" name="paymentMethod" value="UPI" checked={paymentOption === "UPI"} onChange={(e) => setPaymentOption(e.target.value)}></input> <span> UPI </span>
               </label>
               <div>
                 <img src="myAssets/upiPayment.png"></img>
@@ -79,7 +131,7 @@ export default function Checkout() {
 
             <div className={styles.cardPayment}>
               <label>
-                <input type="radio" name="paymentMethod"></input> <span> Cash on Delivery (COD) </span>
+                <input type="radio" name="paymentMethod" value="Cash on Delivery (COD)" checked={paymentOption === "Cash on Delivery (COD)"} onChange={(e) => setPaymentOption(e.target.value)}></input> <span> Cash on Delivery (COD) </span>
               </label>
             </div>
           </div>
@@ -87,26 +139,23 @@ export default function Checkout() {
         </div>
       </div>
 
-
-
       <div className={styles.rightContainer}>
         <div className={styles.orderSummary}>
           <h1>Order Summary</h1>
           <div className={styles.subtotal}>
-            <div>Subtotal (4 items):</div> <div>₹799</div>
+            <div>Subtotal ({billingDetails.quantity} items):</div> <div>₹{billingDetails.subtotal}</div>
           </div>
           <div className={styles.subtotal}>
-            <div>Delivery Charge:</div> <div>₹49</div>
+            <div>Delivery Charge:</div> <div>₹{billingDetails.deliveryCharge}</div>
           </div>
           <div className={`${styles.subtotal} ${styles.discountColor}`}>
-            <div>Discount:</div> <div>₹49</div>
+            <div>Discount:</div> <div>₹{billingDetails.discount}</div>
           </div>
           <hr></hr>
           <div className={`${styles.subtotal} ${styles.totalAmount}`}>
-            <div>Total Amount:</div> <div>₹799</div>
+            <div>Total Amount:</div> <div>₹{billingDetails.totalAmount}</div>
           </div>
-
-          <button className={styles.placeOrderButton}>PLACE ORDER</button>
+          <button className={styles.placeOrderButton} onClick={() => placeOrder()}>PLACE ORDER</button>
           <div>
             <img src="myAssets/OrderSummary.png"></img>
           </div>

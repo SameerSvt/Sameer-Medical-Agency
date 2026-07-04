@@ -9,6 +9,8 @@ import OrderReviewCard from "../checkout/OrderReviewCard.jsx";
 export default function Cart() {
   const [cartItems, setCartItems] = useState([])
   const [change, setChange] = useState(false)
+  const [address, setAddress] = useState({})
+  const [billingDetails, setBillingDetails] = useState({})
   const navigate = useNavigate()
 
   function handleCheckout() {
@@ -19,27 +21,26 @@ export default function Cart() {
     async function fetchCart() {
       try {
         const response = await axios.get("/api/v1/carts/fetch-cart")
-        setCartItems(response?.data?.data?.items)
+        if(response) {
+          setCartItems(response?.data?.data?.items)
+        }
+
+        const billingResponse = await axios.get("/api/v1/carts/billing-details")
+        if(billingResponse) {
+          setBillingDetails(billingResponse.data?.data)
+        }
+
+        const getUser = await axios.get("/api/v1/users/current-user?populate=address")
+        if(getUser) {
+          setAddress(getUser.data?.data?.activeAddressId)
+        }
       } catch (error) {
         console.log("Error occure while fetching cart")
       }
     }
     fetchCart()
   }, [change])
-
-  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0)
-  const cartTotal = cartItems.reduce((acc, item) => acc + (item?.productId.retailPrice * item.quantity), 0)
-  const subTotal = cartItems.reduce((acc, item) => acc + (item?.productId.mrp * item.quantity), 0)
-  const deliveryCharge = () => {
-    if (cartTotal > 499) {
-      return 0
-    }
-    return 49
-  }
-  const totalDiscount = cartItems.reduce((acc, item) => acc + (item.productId.mrp - item.productId.retailPrice) * item.quantity, 0)
-  const totalAmount = cartTotal + deliveryCharge()
-
-
+  
   return (
     <>
       <div className={styles.cartPage}>
@@ -48,13 +49,13 @@ export default function Cart() {
         <div className={styles.cartTotalPhone}>
           <div>
             <p>
-              Cart total: <h1>₹{cartTotal}</h1>
+              Cart total: <h1>₹{billingDetails.cartTotal}</h1>
             </p>
           </div>
           <hr></hr>
           <div>
-            <button className={styles.addressButton}>
-              Add Delivery Address{" "}
+            <button className={styles.addressButton} onClick={() => navigate("address")}>
+              Add Delivery Address
               <HiArrowRightCircle className={styles.iconRightArrow} />
             </button>
           </div>
@@ -72,35 +73,58 @@ export default function Cart() {
 
         {/* for desktop/PC */}
         <div className={styles.checkout}>
-          <div className={styles.cartTotal}>
+          {!address?._id && <div className={styles.cartTotal}>
             <div>
               <p>
-                Cart total: <h1>₹{cartTotal}</h1>
+                Cart total: <h1>₹{billingDetails.cartTotal}</h1>
               </p>
             </div>
             <hr></hr>
+
             <div>
-              <button className={styles.addressButton}>
+              <button className={styles.addressButton} onClick={() => navigate("/address")}>
                 Add Delivery Address{" "}
                 <HiArrowRightCircle className={styles.iconRightArrow} />
               </button>
             </div>
-          </div>
+          </div>}
+
+          {address?._id && <div className={styles.address}>
+            <div>
+                <h6>Deliver to :</h6>
+                <hr></hr>
+                <div className={styles.info}>
+                  <h5>{address.name}</h5>
+                <p>
+                  {`${address.landmark}, ${address.areaDetails}, ${address.city}, ${address.state}, ${address.pincode}`}
+                </p>
+                <h4>Contact: {address.contact}</h4> 
+                </div>
+            </div>
+
+
+            <div>
+              <button className={styles.addressButton} onClick={() => navigate("/address")}>
+                Change Address{" "}
+                <HiArrowRightCircle className={styles.iconRightArrow} />
+              </button>
+            </div>
+          </div>}
 
           <div className={styles.orderSummary}>
             <h1>Order Summary</h1>
             <div className={styles.subtotal}>
-              <div>{`Subtotal (${totalQuantity} items):`}</div> <div>₹{subTotal}</div>
+              <div>{`Subtotal (${billingDetails.quantity} items):`}</div> <div>₹{billingDetails.subtotal}</div>
             </div>
             <div className={styles.subtotal}>
-              <div>Delivery Charge:</div> <div>₹{deliveryCharge()}</div>
+              <div>Delivery Charge:</div> <div>₹{billingDetails.deliveryCharge}</div>
             </div>
             <div className={`${styles.subtotal} ${styles.discountColor}`}>
-              <div>Discount:</div> <div>₹{totalDiscount}</div>
+              <div>Discount:</div> <div>₹{billingDetails.discount}</div>
             </div>
             <hr></hr>
             <div className={`${styles.subtotal} ${styles.totalAmount}`}>
-              <div>Total Amount:</div> <div>₹{totalAmount}</div>
+              <div>Total Amount:</div> <div>₹{billingDetails.totalAmount}</div>
             </div>
 
             <button onClick={handleCheckout}>PROCEED TO CHECKOUT</button>

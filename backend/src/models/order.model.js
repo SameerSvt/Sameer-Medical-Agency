@@ -29,27 +29,35 @@ const orderSchema = new Schema({
         discount: { type: Number, required: true },
         totalAmount: { type: Number, required: true },
     },
-    // billingAddress: {
-    //     state: { type: String, required: true },
-    //     pincode: { type: Number, required: true },
-    //     city: { type: String, required: true },
-    //     areaDetails: { type: String, required: true },
-    //     landmark: { type: String, required: true }
-    // },
+    billingAddress: {
+        name: { type: String, required: true },
+        contact: { type: String, required: true },
+        state: { type: String, required: true },
+        pincode: { type: Number, required: true },
+        city: { type: String, required: true },
+        areaDetails: { type: String, required: true },
+        landmark: { type: String, required: true }
+    },
     paymentOption: {
         type: String,
-        enum: ["Cash on Delivery (COD)", "UPI / Online Payment"],
+        enum: ["Credit/Debit Card", "Net Banking", "UPI", "Cash on Delivery (COD)"],
         required: true
     },
     paymentStatus: {
         type: String,
         enum: ["Pending", "Paid", "Failed"],
-        default: "Pending"
+        default: function () {
+            return this.paymentOption === "Cash on Delivery (COD)" ? "Pending" : "Paid"
+        }
     },
     orderStatus: {
         type: String,
-        enum: ["Order Placed", "Processing", "Shipped", "Our for Delivery", "Delivered", "Cancelled"],
+        enum: ["Order Placed", "Processing", "Shipped", "Out for Delivery", "Delivered", "Cancelled"],
         default: "Order Placed"
+    },
+    rating: {
+        type: Number,
+        enum: [1, 2, 3, 4, 5]
     }
 }, {timestamps: true})
 
