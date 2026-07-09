@@ -17,10 +17,11 @@
     border: 1px solid transparent;
     padding: 0.5rem;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .catPanelItem:hover {
-    border: 1px solid rgb(247, 245, 245);
+    background-color: white;
     padding: 0.5rem;
     border-radius: 0.5rem;
 }

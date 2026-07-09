@@ -3,38 +3,20 @@ import styles from './Catalog.module.css'
 import ProductCard from './ProductCard'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import { useProductFilter } from '../../context/ProductFilterContext.jsx'
 
 
 export default function Catalog({ searchTerm, categoryTerm }) {
-  const [Products, setProducts] = useState([])
+  const {handleOnFilterChange, selectedFilters, products} = useProductFilter()
 
-  useEffect(() => {
-   const fetchProducts = async () => {
-    try {
-      const response = await axios.get("/api/v1/products/get-all-products")
-      if (!response?.data?.data) {
-        console.log("Product not found")
-        setProducts([])
-      }
-      setProducts(response.data.data)
-    } catch (error) {
-      console.error("Unable to fetch product from backend ", error?.response?.data?.message || error.message)
-      setProducts([])
-    }
-  }
-  fetchProducts()
-  }, [])
+  
+  const saltOptions = ["Paracetamol", "Amoxicillin", "Cefixime", "Glimepiride", "Vitamin C", "Atorvastatin", "Pantoprazole", "Ibuprofen", "Metformin", "Diclofenac"];
 
+  const categoryOptions = ["Generic Drugs", "Antibiotics", "Cardiac Care", "Diabetes Care", "Pediatric Care", "Oncology Drugs", "Emergency Meds", "Surgical Equipment", "Personal Care", "Diagnostic Tools"];
 
-  const filteredProducts = Products.filter((item) => {
-    const matchesSearch = item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.salt?.toLowerCase().includes(searchTerm.toLowerCase())
+  // const brandOptions = ["Pfizer", "Johnson", "Sanofi", "Cipla", "Abbott", "Mankind", "Lupin", "Zydus", "Alkem", "Ipca"];
 
-    const matchesCategory = categoryTerm === "All" || item.category === categoryTerm
-
-    return matchesSearch && matchesCategory
-  })
+  const sortOptions = ["Price: Low to High", "Price: High to Low", "Better Discount"]
 
   return (
     <div>
@@ -49,53 +31,40 @@ export default function Catalog({ searchTerm, categoryTerm }) {
             <h1>FILTER & SORT</h1>
 
             <div className={styles.filterPhone}>
-              <select name="salt">
+
+              <select name="salt" value={selectedFilters.salt} onChange={handleOnFilterChange}>
                 <option value="">Salt</option>
-                <option value="Paracetamol">Paracetamol</option>
-                <option value="Amoxicillin">Amoxicillin</option>
-                <option value="Cefixime">Cefixime</option>
-                <option value="Glimepiride">Glimepiride</option>
-                <option value="Vitamin C">Vitamin C</option>
-                <option value="Atorvastatin">Atorvastatin</option>
-                <option value="Pantoprazole">Pantoprazole</option>
-                <option value="Ibuprofen">Ibuprofen</option>
-                <option value="Metformin">Metformin</option>
-                <option value="Diclofenac">Diclofenac</option>
+                {
+                  saltOptions.map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))
+                }
               </select>
               <hr></hr>
 
-              <select name="salt">
+              <select name="category" value={selectedFilters.category} onChange={handleOnFilterChange}>
                 <option value="">Category</option>
-                <option value="Generic Drugs">Generic Drugs</option>
-                <option value="Antibiotics">Antibiotics</option>
-                <option value="Cardiac Care">Cardiac Care</option>
-                <option value="Diabetes Care">Diabetes Care</option>
-                <option value="Pediatric Care">Pediatric Care</option>
-                <option value="Oncology Drugs">Oncology Drugs</option>
-                <option value="Emergency Meds">Emergency Meds</option>
-                <option value="Surgical Equipment">Surgical Equipment</option>
-                <option value="Personal Care">Personal Care</option>
-                <option value="Disgnostic Tools">Diagnostic Tools</option>
+                {
+                  categoryOptions.map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))
+                }
+                
               </select>
               <hr></hr>
 
-              <select name="salt">
-                <option value="">Brands</option>
-                <option value="Pfizer">Pfizer</option>
-                <option value="Johnson">Johnson</option>
-                <option value="Sanofi">Sanofi</option>
-                <option value="Cipla">Cipla</option>
-                <option value="Dr. Reddy's Laboratories">Abbott</option>
-                <option value="Mankind Pharma">Mankind</option>
-                <option value="Lupin Ltd">Lupin</option>
-                <option value="Zydus Lifesciences">Zydus</option>
-                <option value="Alkem Laboratories">Alkem</option>
-                <option value="Torrent Pharmaceuticals">Ipca</option>
+               <select name="sort" value={selectedFilters.sort} onChange={handleOnFilterChange}>
+                <option value="">Sort By: Relevance</option>
+                {
+                  sortOptions.map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))
+                }
               </select>
               <hr></hr>
+
               <div className={styles.spacing}></div>
             </div>
-
 
           </div>
         </div>
@@ -103,13 +72,13 @@ export default function Catalog({ searchTerm, categoryTerm }) {
         <div className={styles.rightSection}>
 
           {
-            filteredProducts.map((item) => (
+            products.map((item) => (
               <ProductCard product={item} key={item._id} />
             ))
           }
 
           {
-            filteredProducts.length === 0 && <h1>No products found</h1>
+            products.length === 0 && <div className={styles.notFound}><img src="NotFound.png"></img></div>
           }
 
         </div>
@@ -117,3 +86,4 @@ export default function Catalog({ searchTerm, categoryTerm }) {
     </div>
   )
 }
+

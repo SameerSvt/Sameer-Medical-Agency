@@ -11,17 +11,17 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Address"
     },
-    // role: {
-    //     type: String,
-    //     enum: ["customer", "retailer", "admin"],
-    //     default: "customer"
-    // },
-    // isVerifiedRetailer: { type: Boolean, default: false },
-    // businessDetails: {
-    //     firmName: { type: String, trim: true },
-    //     drugLicenseNumber: { type: String, trim: true },
-    //     gstNumber: { type: String, trim: true }
-    // },
+    role: {
+        type: String,
+        enum: ["customer", "retailer", "admin"],
+        default: "customer"
+    },
+    isVerifiedRetailer: { type: Boolean, default: false },
+    businessDetails: {
+        firmName: { type: String, trim: true },
+        drugLicenseNumber: { type: String, trim: true },
+        gstNumber: { type: String, trim: true }
+    },
     refreshToken: {
         type: String
     }

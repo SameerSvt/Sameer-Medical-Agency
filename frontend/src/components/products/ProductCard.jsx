@@ -1,16 +1,13 @@
 import React from 'react'
 import styles from './ProductCard.module.css'
 import axios from "axios"
+import { useCart } from '../../context/CartContext.jsx'
 
 export default function ProductCard({product}) {
+    const { addToCart } = useCart()
 
     async function handleAddToCartClick(productId, quantity) {
-        try {
-            const response = await axios.post("/api/v1/carts/add-to-cart", {productId, quantity})
-            alert("Item added to cart successfully")
-        } catch (error) {
-            console.log("Something went wrong while adding item to cart", error)
-        }
+        await addToCart(productId, quantity)
     }
 
   return (

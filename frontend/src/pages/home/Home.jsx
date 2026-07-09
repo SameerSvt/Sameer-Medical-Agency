@@ -4,9 +4,11 @@ import Banner from '../../components/banner/Banner.jsx'
 import InfoSection from '../../components/category/InfoSection.jsx'
 import Category2 from '../../components/category/Category2.jsx'
 import { useNavigate } from 'react-router-dom'
+import { useProductFilter } from '../../context/ProductFilterContext.jsx'
 
 export default function Home({ setCategoryTerm }) {
   const navigate = useNavigate()
+  const { setSelectedFilters } = useProductFilter()
 
   const categoryPanel = [
     "Generic Drugs",
@@ -29,7 +31,7 @@ export default function Home({ setCategoryTerm }) {
   const test = ["/test/Test1", "/test/Test2", "/test/Test3"]
 
   function handleCategoryPanelClick(cat) {
-    setCategoryTerm(cat)
+    setSelectedFilters({category: cat})
     navigate('/catalog')
   }
 
@@ -56,7 +58,7 @@ export default function Home({ setCategoryTerm }) {
 
       <div className={styles.bodyHome}>
 
-        <div><img src="myAssets/Wellness.png" className={styles.bannerMiddle} onClick={() => { handleCategoryPanelClick("All")}}></img></div>
+        <div><img src="myAssets/Wellness.png" className={styles.bannerMiddle} onClick={() => navigate('/catalog')}></img></div>
 
         <InfoSection />
 

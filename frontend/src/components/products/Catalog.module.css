@@ -39,7 +39,7 @@
 }
 
 .leftSticky select {
-    margin-top: 40%;
+    margin-top: 35%;
     font-size: 1.2rem;
     font-weight: 600;
     width: 100%;
@@ -47,6 +47,7 @@
     border: none;
     outline: none;
     cursor: pointer;
+    margin-bottom: 3px;
 }
 
 .spacing {
@@ -59,6 +60,18 @@
     justify-content: space-between;
     width: 80%;
     flex-wrap: wrap;
+}
+
+.notFound {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+}
+
+.notFound img {
+    max-width: 80%;
 }
 
 @media (max-width: 768px) {
@@ -95,6 +108,7 @@
     .filterPhone {
         display: flex;
         justify-content: space-between;
+        gap: 5px;
     }
 
     .filterPhone hr{
@@ -116,7 +130,14 @@
 
     .rightSection {
         width: 100%;
-        /* border: 2px solid black; */
+    }
+
+    .notFound {
+        height: 50vh;
+    }
+
+    .notFound img {
+        max-width: 100%;
     }
 
 

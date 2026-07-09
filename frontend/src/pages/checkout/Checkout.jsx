@@ -4,55 +4,18 @@ import OrderReviewCard from './OrderReviewCard';
 import axios from 'axios'
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { useCart } from '../../context/CartContext.jsx';
 
 export default function Checkout() {
-  const [cartItems, setCartItems] = useState([])
-  const [address, setAddress] = useState({})
-  const [billingDetails, setBillingDetails] = useState({})
-  const [change, setChange] = useState(false)
   const [paymentOption, setPaymentOption] = useState("")
+  const {cartItems, address, billingDetails, fetchCartData} = useCart()
   const navigate = useNavigate()
-
-  async function refreshCart() {
-    try {
-      const response = await axios.get("/api/v1/carts/fetch-cart")
-        if (response) {
-          setCartItems(response?.data?.data?.items)
-        }
-    } catch (error) {
-      console.log("Error occure while fetching cart")
-    }
-  }
-
-  useEffect(() => {
-    async function fetchCart() {
-      try {
-        const response = await axios.get("/api/v1/carts/fetch-cart")
-        if (response) {
-          setCartItems(response?.data?.data?.items)
-        }
-
-        const billingResponse = await axios.get("/api/v1/carts/billing-details")
-        if (billingResponse) {
-          setBillingDetails(billingResponse.data?.data)
-        }
-
-        const getUser = await axios.get("/api/v1/users/current-user?populate=address")
-        if (getUser) {
-          setAddress(getUser.data?.data?.activeAddressId)
-        }
-      } catch (error) {
-        console.log("Error occure while fetching cart")
-      }
-    }
-    fetchCart()
-  }, [change])
 
   async function placeOrder() {
     try {
       const response = await axios.post("/api/v1/orders/checkout", {paymentOption})
       if(response) {
-        refreshCart()
+        fetchCartData()
         alert(response.data?.message || "Order Placed Successufully")
         navigate("/ordersHistory")
       }
@@ -74,7 +37,6 @@ export default function Checkout() {
             <p>{`${address?.landmark}, ${address?.areaDetails}, ${address?.city}, ${address?.state}, ${address?.pincode}`}</p>
             <h1> Contact: {address?.contact}</h1>
             <div className={styles.addressButtons}>
-              {/* <button className={styles.addressButton} onClick={() => navigate("/address")}>Edit</button> */}
               <button className={styles.addressButton} onClick={() => navigate("/address")}>Change Address</button>
             </div>
           </div>
@@ -86,7 +48,7 @@ export default function Checkout() {
           <hr></hr>
           <div className={styles.orderItems}>
             {cartItems?.map((item) => (
-              <OrderReviewCard key={item._id} data={item} change={change} setChange={setChange} />
+              <OrderReviewCard key={item._id} data={item}/>
             ))}
           </div>
         </div>

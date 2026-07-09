@@ -12,7 +12,7 @@ export default function Banner() {
   return (
     <div>
         <div className={styles.banners}>
-            <img src="myAssets/Banner2.png" className={styles.bannersImg} onClick={() => { handleHeroClick("All") }}></img>
+            <img src="myAssets/Banner2.png" className={styles.bannersImg} onClick={ handleHeroClick}></img>
         </div>
     </div>
   

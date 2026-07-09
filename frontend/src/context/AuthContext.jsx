@@ -9,6 +9,7 @@ export default function AuthProvider ({children}) {
     const [user, setUser] = useState(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [cartCount, setCartCount] = useState(0)
 
 
     const login = (userData) => {
@@ -37,7 +38,7 @@ export default function AuthProvider ({children}) {
         }
 
         checkExistingSession()
-    }, [])
+    }, [isLoggedIn])
 
     const logout = async () => {
         try {
@@ -55,7 +56,7 @@ export default function AuthProvider ({children}) {
     }
 
     return (
-        <AuthContext.Provider value={{user, isLoggedIn, loading, login, logout}}>
+        <AuthContext.Provider value={{user, isLoggedIn, loading, cartCount, setCartCount, login, logout}}>
             {!loading && children}
         </AuthContext.Provider>
     )

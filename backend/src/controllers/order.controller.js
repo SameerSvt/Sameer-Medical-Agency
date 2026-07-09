@@ -21,8 +21,8 @@ const checkout = asyncHandler(async (req, res) => {
     }
 
     const userProfile = await User.findById(userId).populate("activeAddressId")
-    
-    if(!userProfile?.activeAddressId) {
+
+    if (!userProfile?.activeAddressId) {
         throw new ApiError(400, "Address is required")
     }
     const activeAddress = userProfile.activeAddressId
@@ -94,7 +94,42 @@ const checkout = asyncHandler(async (req, res) => {
 })
 
 const getOrderHistory = asyncHandler(async (req, res) => {
-    const orderHistory = await Order.find({ userId: req.user._id }).populate("items.productId").sort({ createdAt: -1 })
+    const { orderStatus, orderDate } = req.query
+
+    let orderHistory
+
+    if(!orderStatus && !orderDate) {
+        orderHistory = await Order.find({ userId: req.user._id}).populate("items.productId").sort({ createdAt: -1 }).lean()
+    } else {
+        let queryObject = {}
+
+        if(orderStatus) {
+            queryObject.orderStatus = orderStatus
+        }
+
+        if(orderDate) {
+
+            let startDate = new Date()
+
+            if(orderDate === "1 month") {
+                startDate.setDate(startDate.getDate() - 30)
+            }
+            else if(orderDate === "3 months") {
+                startDate.setDate(startDate.getDate() - 90)
+            }
+            else {
+                startDate.setDate(startDate.getDate() - 180)
+            }
+
+            startDate.setHours(0, 0, 0, 0)
+
+            queryObject.createdAt = {$gte: startDate}
+        }
+
+
+        orderHistory = await Order.find({ userId: req.user._id, ...queryObject}).populate("items.productId").sort({ createdAt: -1 }).lean()
+    }
+
 
     return res.status(200).json(new ApiResponse(200, orderHistory, "Order history fetched successfully"))
 })

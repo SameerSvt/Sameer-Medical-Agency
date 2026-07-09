@@ -13,25 +13,25 @@ const listProduct = asyncHandler(async (req, res) => {
     const missingStringField = [name, saltComposition, category].some((field) => field?.trim() === "")
     const missingNumericField = [mrp, retailPrice, wholesalePrice, discountPercentage, stock].some((field) => field === undefined || field === null || field === "")
 
-    if(missingNumericField || missingStringField) {
+    if (missingNumericField || missingStringField) {
         throw new ApiError(400, "All fields are required")
     }
 
-    const existedProdict = await Product.findOne({name: name.toLowerCase().trim()})
+    const existedProdict = await Product.findOne({ name: name.toLowerCase().trim() })
 
-    if(existedProdict) {
+    if (existedProdict) {
         throw new ApiError(400, "Product with this name already exists")
     }
 
     const imageLocalPath = req.file?.path
 
-    if(!imageLocalPath) {
+    if (!imageLocalPath) {
         throw new ApiError(400, "Image file not uploaded")
     }
 
     const uploadedImage = await uploadOnCloudinary(imageLocalPath)
 
-    if(!uploadedImage?.secure_url) {
+    if (!uploadedImage?.secure_url) {
         throw new ApiError(500, "Failed to upload product image to the cloud")
     }
 
@@ -59,21 +59,66 @@ const listProduct = asyncHandler(async (req, res) => {
 })
 
 const getAllProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({})
+    const { search, salt, category, brand, sort } = req.query
 
-    if(!products) {
-        throw new ApiError(500, "Unable to fetch product from databse")
+    const queryObject = {}
+
+    if(search.trim() !== "") {
+        queryObject.$or = [
+            {name: {$regex: search.trim(), $options: 'i'}},
+            {saltComposition: {$regex: search.trim(), $options: 'i'}},
+            {category: {$regex: search.trim(), $options: 'i'}}
+        ] 
     }
 
-    res.status(200).json(
+    if (salt) {
+        queryObject.saltComposition = { $regex: salt, $options: 'i' }
+    }
+
+    if (category) {
+        queryObject.category = category
+    }
+
+    let products
+    
+    if(!sort) {
+        // const countMatch = await Product.countDocuments(queryObject)
+
+        products = await Product.aggregate([
+            {$match: queryObject},
+            // {$sample: {size: countMatch || 1}}
+            {$sample: {size: 100}}
+        ])
+    }
+    else {
+        let queryProducts = Product.find(queryObject).lean()
+
+        if (sort === "Price: Low to High") {
+            queryProducts = queryProducts.sort({ retailPrice: 1 })
+        }
+        if (sort === "Price: High to Low") {
+            queryProducts = queryProducts.sort({ retailPrice: -1 })
+        }
+        if (sort === "Better Discount") {
+            queryProducts = queryProducts.sort({ discountPercentage: -1 })
+        }
+
+        products = await queryProducts
+    }
+
+
+
+    return res.status(200).json(
         new ApiResponse(
             200,
             products,
             "Products fetched from database"
         )
     )
+
 })
 
-export { listProduct,
+export {
+    listProduct,
     getAllProducts
- }
+}

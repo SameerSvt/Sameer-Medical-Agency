@@ -23,25 +23,16 @@ function App() {
       <div>
         <img className="bannerTop" src="myAssets/BannerTop.png"></img>
 
-        <Navbar
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          setCategoryTerm={setCategoryTerm}
-        />
+        <Navbar />
 
         <Routes>
-          <Route path="/" element={<Home setCategoryTerm={setCategoryTerm} />} />
-          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
-          <Route
-            path="/catalog"
-            element={
-              <Catalog searchTerm={searchTerm} categoryTerm={categoryTerm} />
-            }
-          />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/uploadprescription" element={<UploadPrescription />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/address" element={<Address />} />

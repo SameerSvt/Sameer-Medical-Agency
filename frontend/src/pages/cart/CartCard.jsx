@@ -3,17 +3,10 @@ import styles from "./CartCard.module.css";
 import { HiMinusCircle } from "react-icons/hi";
 import { HiPlusCircle } from "react-icons/hi";
 import axios from "axios"
+import { useCart } from "../../context/CartContext.jsx";
 
-export default function cartCard({cartItem, change, setChange}) {
-  async function handleRemoveClick(productId) {
-    try {
-      const response = await axios.post("/api/v1/carts/remove-item", {productId})
-      setChange(!change)
-      alert(`${productId.name} removed from cart`)
-    } catch (error) {
-      console.error("Error occured while removing item from cart")
-    }
-  }
+export default function cartCard({cartItem}) {
+  const { removeItem, updateQuantity } = useCart()
 
   const product = cartItem?.productId;
 
@@ -38,11 +31,11 @@ export default function cartCard({cartItem, change, setChange}) {
 
         <div className={styles.quantity}>
           <div className={styles.qty}>
-            <HiMinusCircle className={styles.iconMinus} />
+            <HiMinusCircle className={styles.iconMinus} onClick={() => updateQuantity(product._id, -1)}/>
             <span>{cartItem.quantity}</span>
-            <HiPlusCircle className={styles.iconPlus} />
+            <HiPlusCircle className={styles.iconPlus} onClick={() => updateQuantity(product._id, 1)}/>
           </div>
-          <h6 onClick={() => handleRemoveClick(product)}>Remove</h6>
+          <h6 onClick={() => removeItem(product)}>Remove</h6>
         </div>
 
       </div>
@@ -51,25 +44,3 @@ export default function cartCard({cartItem, change, setChange}) {
   );
 }
 
-
-
-{/* <div className={styles.cardImage}>
-          <img src="/productImage/Diagnostic_Tools.png"></img>
-        </div>
-
-        <div className={styles.cardInfo}>
-          <h1>Product Name</h1>
-          <h2>Product Composition, Category</h2>
-          <div className={styles.pricing}>
-            <h3>₹78</h3> <h4>MRP 98</h4> <h5>19% off</h5>
-          </div>
-        </div>
-
-        <div className={styles.quantity}>
-          <div className={styles.qty}>
-            <HiMinusCircle className={styles.iconMinus} /> 
-            <span>1</span>
-            <HiPlusCircle className={styles.iconPlus} />
-          </div>
-          <a href="#">Remove</a>
-        </div> */}

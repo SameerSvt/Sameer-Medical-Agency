@@ -1,52 +1,33 @@
 import styles from "./Cart.module.css";
 import CartCard from "./CartCard.jsx";
 import { HiArrowRightCircle } from "react-icons/hi2";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import OrderReviewCard from "../checkout/OrderReviewCard.jsx";
+import { useCart } from "../../context/CartContext.jsx";
+
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([])
-  const [change, setChange] = useState(false)
-  const [address, setAddress] = useState({})
-  const [billingDetails, setBillingDetails] = useState({})
   const navigate = useNavigate()
+  const {cartItems, address, billingDetails, cartCount, fetchCartData, fetchAddress} = useCart()
 
   function handleCheckout() {
-    navigate("/checkout")
-  }
-
-  useEffect(() => {
-    async function fetchCart() {
-      try {
-        const response = await axios.get("/api/v1/carts/fetch-cart")
-        if(response) {
-          setCartItems(response?.data?.data?.items)
-        }
-
-        const billingResponse = await axios.get("/api/v1/carts/billing-details")
-        if(billingResponse) {
-          setBillingDetails(billingResponse.data?.data)
-        }
-
-        const getUser = await axios.get("/api/v1/users/current-user?populate=address")
-        if(getUser) {
-          setAddress(getUser.data?.data?.activeAddressId)
-        }
-      } catch (error) {
-        console.log("Error occure while fetching cart")
-      }
+    if(billingDetails.quantity !== 0) {
+      navigate("/checkout")
+    } else {
+      alert("Add product in cart")
     }
-    fetchCart()
-  }, [change])
+  }
   
   return (
     <>
-      <div className={styles.cartPage}>
+      {
+        billingDetails.quantity !== 0 ? <div className={styles.cartPage}>
 
         {/* for phone */}
-        <div className={styles.cartTotalPhone}>
+        {
+          !address._id && <div className={styles.cartTotalPhone}>
           <div>
             <p>
               Cart total: <h1>₹{billingDetails.cartTotal}</h1>
@@ -60,15 +41,14 @@ export default function Cart() {
             </button>
           </div>
         </div>
+        }
 
         <div className={styles.cartItems}>
-
           {
             cartItems.map((cartItem) => (
-              <CartCard cartItem={cartItem} change={change} setChange={setChange} />
+              <CartCard cartItem={cartItem} />
             ))
           }
-
         </div>
 
         {/* for desktop/PC */}
@@ -132,8 +112,18 @@ export default function Cart() {
               <img src="myAssets/OrderSummary.png"></img>
             </div>
           </div>
+
         </div>
+
+      </div> : 
+      <div className={styles.emptyCartPage}>
+        <img src="EmptyCart.png"></img>
+        <h1>Your Cart is Asleep, Add Some Life to It !</h1>
+        <p>It seems you haven't added any products to your cart yet. Explore our wide selection of quality medicines and care products to find what you need and bring your cart to life </p>
+        <button onClick={ () => navigate('/')}>BROWSE MEDICINES & CARE PRODUCTS</button>
       </div>
+      }
+      
     </>
   );
 }

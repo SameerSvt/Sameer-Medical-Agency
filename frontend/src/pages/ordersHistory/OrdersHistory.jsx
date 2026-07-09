@@ -6,10 +6,21 @@ import axios from 'axios';
 
 export default function OrdersHistory() {
     const [orderData, setOrderData] = useState([])
+    const [filterOrderHistory, setFilterOrderHistory] = useState({
+        filterOrder: "",
+        dateRange: ""
+    })
+    
+
     useEffect(() => {
         async function fetchOrder() {
             try {
-                const response = await axios.get("/api/v1/orders/get-order-history")
+                const response = await axios.get("/api/v1/orders/get-order-history", {
+                    params: {
+                        orderStatus: filterOrderHistory.filterOrder,
+                        orderDate: filterOrderHistory.dateRange
+                    }
+                })
                 if (response) {
                     setOrderData(response.data?.data)
                 }
@@ -18,7 +29,15 @@ export default function OrdersHistory() {
             }
         }
         fetchOrder()
-    }, [])
+    }, [filterOrderHistory])
+
+    function handleOnChange(e) {
+        const {name, value} = e.target
+        setFilterOrderHistory(prev => ({
+            ...prev,
+            [name] : value
+        }))
+    }
 
 
     return (
@@ -28,20 +47,22 @@ export default function OrdersHistory() {
                 <div className={styles.orderFilter}>
                     <div>
                         <pre>Filter Orders:  </pre>
-                        <select>
-                            <option default>All</option>
-                            <option>Delivered</option>
-                            <option>Cancelled</option>
-                            <option>Processing</option>
+                        <select name="filterOrder" value={filterOrderHistory.filterOrder} onChange={handleOnChange}>
+                            <option value="">All</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Cancelled">Cancelled</option>
                         </select>
                     </div>
                     <div>
                         <pre>Date Range:  </pre>
-                        <select>
-                            <option default>28 Days</option>
-                            <option>3 months</option>
-                            <option>6 months</option>
-                            <option>All time</option>
+                        <select name="dateRange" value={filterOrderHistory.dateRange} onChange={handleOnChange}>
+                            <option value="">All time</option>
+                            <option value="1 month">1 month</option>
+                            <option value="3 months">3 months</option>
+                            <option value="6 months">6 months</option>
+                            
+                            
                         </select>
                     </div>
                 </div>

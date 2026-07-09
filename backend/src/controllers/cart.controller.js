@@ -40,7 +40,7 @@ const addToCart = asyncHandler(async (req, res) => {
 
 const fetchCart = asyncHandler(async (req, res) => {
 
-    const cart = await Cart.findOne({ userId: req.user._id }).populate("items.productId")
+    const cart = await Cart.findOne({ userId: req.user._id }).populate("items.productId").lean()
 
     if (!cart) {
         return res.status(200).json(new ApiResponse(200, { items: [] }, "Cart is Empty"))
@@ -72,7 +72,7 @@ const removeItem = asyncHandler(async (req, res) => {
 })
 
 const getBillingDetails = asyncHandler(async (req, res) => {
-    const cart = await Cart.findOne({ userId: req.user._id }).populate("items.productId")
+    const cart = await Cart.findOne({ userId: req.user._id }).populate("items.productId").lean()
     let quantity = 0
     let subtotal = 0
     let discount = 0
@@ -90,6 +90,7 @@ const getBillingDetails = asyncHandler(async (req, res) => {
         quantity += cartItem.quantity
         subtotal += cartItem.quantity * item.mrp
         cartTotal += cartItem.quantity * item.retailPrice
+
     }
     discount = subtotal - cartTotal
     deliveryCharge = (cartTotal > 499 || cartTotal === 0) ? 0 : 49
@@ -98,6 +99,13 @@ const getBillingDetails = asyncHandler(async (req, res) => {
 
     return res.status(200).json(new ApiResponse(200, {quantity, subtotal, discount, cartTotal, deliveryCharge, totalAmount}, "Billing details calculated successfully"))
 })
+
+const updateQuantity = asyncHandler( async(req, res) => {
+    const {productId, quantity} = req.body
+
+
+})
+
 export {
     addToCart,
     fetchCart,

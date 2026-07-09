@@ -87,6 +87,7 @@
 .iconMinus {
   color: rgb(13, 110, 245);
   font-size: 3rem;
+  cursor: pointer;
 }
 
 .qty span {
@@ -99,6 +100,7 @@
 .iconPlus {
   color: rgb(13, 110, 245);
   font-size: 3rem;
+  cursor: pointer;
 }
 
 .quantity h6 {

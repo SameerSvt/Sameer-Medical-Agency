@@ -1,12 +1,16 @@
 import styles from './AddressCard.module.css'
 import axios from 'axios'
 import { useState } from 'react'
+import { useCart } from '../../context/CartContext'
 
 
 export default function AddressCard({ data, activeAddressId, selectAddress }) {
+    const {fetchAddress} = useCart()
 
     async function handleSelectAddressClick(addressId) {
        await selectAddress(addressId)
+       await fetchAddress()
+
     }
 
     const isSelected = activeAddressId === data._id

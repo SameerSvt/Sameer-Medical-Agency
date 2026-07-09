@@ -1,9 +1,12 @@
 import React from 'react'
 import styles from './Category2.module.css'
 import { useNavigate } from 'react-router-dom'
+import { useProductFilter } from '../../context/ProductFilterContext.jsx'
 
-export default function category2({ setCategoryTerm }) {
+export default function category2() {
     const navigate = useNavigate()
+    const { setSelectedFilters } = useProductFilter()
+    
 
     const category = [
         { url: 'Generic.png', name: "Generic Drugs", desc: 'Quality healing at lower prices.' },
@@ -20,7 +23,7 @@ export default function category2({ setCategoryTerm }) {
     ]
 
     function handleOnCategoryBoxClick(categoryName) {
-        setCategoryTerm(categoryName)
+        setSelectedFilters({category: categoryName})
         navigate('/catalog')
     }
 

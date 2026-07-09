@@ -4,11 +4,17 @@ import { FaSearch, FaCloudUploadAlt } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext.jsx'
+import { useCart } from '../../context/CartContext.jsx';
+import { FaUserNurse, FaCartPlus } from "react-icons/fa6";
+import { useProductFilter } from '../../context/ProductFilterContext.jsx';
 
-export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
-    const navItemsRight = ["AboutUs", "Cart", "Login", "Profile"]
 
+export default function Navbar() {
     const navigate = useNavigate()
+    const { user, isLoggedIn } = useAuth()
+    const { billingDetails } = useCart()
+    const { setSearchTerm, setSelectedFilters, clearFilter } = useProductFilter()
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [searchBox, setSearchBox] = useState("")
@@ -20,10 +26,12 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
     function closeMenu() {
         setIsMenuOpen(false)
     }
+
     function handleHomeClick() {
         navigate('/')
+        setSearchBox('')
         setSearchTerm('')
-        setCategoryTerm('All')
+        setSelectedFilters(clearFilter)
     }
 
     function handleUploadPrescriptionClick() {
@@ -31,63 +39,124 @@ export default function Navbar({ searchTerm, setSearchTerm, setCategoryTerm }) {
         navigate('/uploadprescription')
     }
 
-    function handleSearchIconClick(e) {
-        setCategoryTerm('All')
+    function handleSearchIconClick() {
+        setSelectedFilters(clearFilter)
         setSearchTerm(searchBox)
-        if (searchTerm.length > 0) {
+        if (searchBox.trim().length === 0) {
+            alert("Search for product first")
+        } else {
             navigate('/catalog')
         }
     }
 
     function handleOnSearchChange(e) {
-        const value = e.target.value
-        setSearchBox(value)
+        setSearchBox(e.target.value)
     }
 
     //Enter key invoked for searching
     const handleEnterKeyClick = (e) => {
-        if(e.key === "Enter") {
+        if (e.key === "Enter") {
             handleSearchIconClick()
         }
     }
 
+    const firstName = user?.fullName?.split(" ")[0]
     return (
         <div className={styles.navbar}>
 
-
+            {/* for desktop */}
             <img src="myAssets/LogoNav.png" className={styles.logoNav} onClick={handleHomeClick}></img>
+
+            {/* for phone */}
             <img src="Logo.png" className={styles.logoPhone} onClick={handleHomeClick}></img>
+
 
             <div className={styles.search}>
                 <input type="text" placeholder='Search your medicines' value={searchBox} onChange={handleOnSearchChange} onKeyDown={handleEnterKeyClick} />
                 <FaSearch className={styles.iconSearch} onClick={handleSearchIconClick} />
             </div>
 
+            {/* for phone */}
             <div> {!isMenuOpen ? <IoMenu className={styles.menu} onClick={handleMenuClick} /> : <IoClose className={styles.menu} onClick={handleMenuClick} />}</div>
 
+            {/* for desktop */}
             <div className={styles.navItems}>
-                <div className={styles.uploadPres} onClick={handleUploadPrescriptionClick}>
+                {isLoggedIn && <div className={styles.uploadPres} onClick={handleUploadPrescriptionClick}>
                     <FaCloudUploadAlt className={styles.iconUpload} />
                     <div> Upload Prescription </div>
                 </div>
+                }
+                <Link className={styles.item} to="/about-us">About Us</Link>
 
-                {navItemsRight.map((item, index) => {
-                    return <li className={styles.listing} key={index} > <Link className={styles.item} to={`/${item?.toLowerCase() == "home" ? '/' : item?.toLowerCase()}`}>{item}</Link></li>
-                })}
+                {!isLoggedIn && <Link className={styles.item} to="/login">Login / Sign Up</Link>}
+
+                {isLoggedIn &&
+                    <Link className={styles.iconOption} to="/cart">
+                        <div>
+                            <FaCartPlus className={styles.iconCart} />
+                        </div>
+                        <div className={styles.cartCount}>
+                            <span>{billingDetails.quantity || 0}</span>
+                            <h1>Cart</h1>
+                        </div>
+                    </Link>}
+
+                {isLoggedIn && <div>
+                    <Link className={styles.iconOption} to="/profile">
+                        <div>
+                            <FaUserNurse className={styles.iconProfile} />
+                        </div>
+                        <div>
+                            <p>Hi ! {firstName}</p>
+                            <h1>Profile</h1>
+                        </div>
+
+                    </Link></div>}
             </div>
 
+            {/* for phone */}
             {isMenuOpen &&
                 <div className={styles.menuItems}>
-                    <div className={styles.uploadPres} onClick={handleUploadPrescriptionClick}>
+
+                    {isLoggedIn && <div>
+                        <Link className={styles.iconOption} to="/profile">
+                            <div>
+                                <FaUserNurse className={styles.iconProfile} />
+                            </div>
+                            <div>
+                                <p>Hi ! {firstName}</p>
+                                <h1>Profile</h1>
+                            </div>
+
+                        </Link></div>}
+                    <hr></hr>
+
+                    {isLoggedIn &&
+                        <Link className={styles.iconOption} to="/cart">
+                            <div>
+                                <FaCartPlus className={styles.iconCart} />
+                            </div>
+                            <div className={styles.cartCount}>
+                                <span>{billingDetails.quantity || 0}</span>
+                                <h1>Cart</h1>
+                            </div>
+                        </Link>}
+                    <hr></hr>
+
+                    <Link className={styles.item} to="/about-us">About Us</Link>
+                    <hr></hr>
+
+                    {isLoggedIn && <div className={styles.uploadPres} onClick={handleUploadPrescriptionClick}>
                         <FaCloudUploadAlt className={styles.iconUpload} />
                         <div> Upload Prescription </div>
                     </div>
+                    }
 
-                    {navItemsRight.map((item, index) => {
-                        return <li className={styles.listing} key={index} onClick={closeMenu} > <Link className={styles.item} to={`/${item?.toLowerCase() == "home" ? '/' : item?.toLowerCase()}`}>{item}</Link><hr></hr></li>
-                    })}
+                    {!isLoggedIn && <Link className={styles.item} to="/login">Login / Sign Up</Link>}
+
                 </div>
             }
         </div>
     )
 }
+
