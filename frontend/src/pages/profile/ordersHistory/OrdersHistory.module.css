@@ -1,12 +1,11 @@
 .ordersPage {
-  margin: 5vh 20vw 3vh 20vw;
-  width: 60vw;
+  margin: 5vh 0vw;
   min-height: 70vh;
-  /* border: 2px solid black; */
-  /* overflow-y: scroll; */
 }
 
 .filterBox {
+  margin: 0 auto;
+  width: 60vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,13 +17,11 @@
 
 .orderFilter {
   background-color: #60d47f;
-  /* border: 2px solid black; */
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   gap: 20px;
   padding: 1rem;
-  /* flex: 0.7; */
 }
 
 .orderFilter div {
@@ -47,9 +44,9 @@
   /* border: 2px solid gray; */
   background-color: rgb(235, 238, 235);
   border-radius: 1rem;
-  width: 100%;
+    width: 60vw;
   height: 200px;
-  margin-top: 2rem;
+  margin: 2rem 20vw 0 20vw;
   padding: 1rem;
 }
 
@@ -81,7 +78,6 @@
 
 .product {
   height: 100%;
-  /* border: 2px solid red; */
   display: flex;
 }
 
@@ -114,7 +110,6 @@
 
 .rateDelivery {
   flex: 0.6;
-  /* border: 2px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,7 +123,6 @@
 
 .actions {
   flex: 0.6; 
-  /* border: 2px solid black; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -164,4 +158,72 @@
 
 .downloadInvoice a {
   color: black;
+}
+
+.emptyCartPage {
+  width: 92%;
+  height: 66vh;
+  margin: 4%;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.emptyCartPage img {
+  max-width: 20vw;
+}
+
+.emptyCartPage h1 {
+  color: green;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  text-align: center;
+  max-width: 50vw;
+}
+
+.emptyCartPage p {
+  text-align: center;
+  max-width: 60vw;
+}
+
+.emptyCartPage button {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: green;
+  padding: 1rem 2.5rem;
+  border: transparent;
+  border-radius: 5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .emptyCartPage {
+    gap: 8px;
+  }
+
+  .emptyCartPage img {
+    max-width: 45vw;
+  }
+
+  .emptyCartPage h1 {
+    font-size: 1.3rem;
+    font-weight: bolder;
+    max-width: 100vw;
+  }
+
+  .emptyCartPage p {
+    max-width: 100vw;
+    font-weight: 300;
+    font-size: 0.9rem;
+  }
+
+  .emptyCartPage button {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.5rem 1.5rem;
+  }
 }

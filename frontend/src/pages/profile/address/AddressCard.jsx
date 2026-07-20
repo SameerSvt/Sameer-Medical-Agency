@@ -1,7 +1,7 @@
 import styles from './AddressCard.module.css'
 import axios from 'axios'
 import { useState } from 'react'
-import { useCart } from '../../context/CartContext'
+import { useCart } from '../../../context/CartContext'
 
 
 export default function AddressCard({ data, activeAddressId, selectAddress }) {

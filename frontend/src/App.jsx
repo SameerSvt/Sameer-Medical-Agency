@@ -12,8 +12,9 @@ import UploadPrescription from "./pages/uploadPrescription/UploadPrescription.js
 import Navbar from "./components/navbar/Navbar.jsx";
 import Catalog from "./components/products/Catalog.jsx";
 import Checkout from "./pages/checkout/Checkout.jsx"
-import Address from "./pages/address/Address.jsx";
-import OrdersHistory from "./pages/ordersHistory/OrdersHistory.jsx";
+import Address from "./pages/profile/address/Address.jsx";
+import OrdersHistory from "./pages/profile/ordersHistory/OrdersHistory.jsx";
+import EditProfile from "./pages/profile/editProfile/EditProfile.jsx"
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,6 +38,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/address" element={<Address />} />
           <Route path="/ordersHistory" element={<OrdersHistory />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
       </div>
 

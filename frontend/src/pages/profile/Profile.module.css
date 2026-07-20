@@ -16,7 +16,7 @@
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .leftSection {
@@ -31,17 +31,15 @@
 .editProfile {
     /* border: 2px solid rgb(153, 0, 255); */
     width: 50%;
-    height: 58.5vh;
+    height: 58vh;
     position: relative;
-    /* z-index: 0; */
-    /* z-index: -1;          */
 }
 
 .setting {
-    width: 20%;
+    width: 18%;
     height: auto;
     position: absolute;
-    top: 4%;
+    top: 5%;
     margin-left: 40%;
 }
 
@@ -55,41 +53,35 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 2;
 }
 
 .editBox h1 {
     font-size: 1.7rem;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 8%;
 }
 
-.edit {
-    border: 2px solid gray;
+.userInfo {
+    background-color: rgb(230, 241, 249);
+    margin: 5%;
+    padding: 1rem;
     border-radius: 1rem;
-    padding: 0.3rem;
-    font-size: 1.5rem;
-    margin-bottom: 2%;
-    display: flex;
-    align-items: center;
-    height: 3rem;
 }
 
-.edit input {
-    width: 100%;
-    height: 100%;
-    padding-left: 3%;
-    font-size: 1.5rem;
-    outline: none;
-    border: transparent;
-   
+.userInfo div {
+    color: gray;
+    overflow: hidden;
+    font-size: 0.8rem;
+}
+
+.userInfo span{
+    color: black;
 }
 
 .editBox img {
     width: 40%;
     height: auto;
-    border: 2px solid black;
+    border: 1px solid gray;
     border-radius: 50%;
     margin: 3% 30% 0 30%;
 }
@@ -109,21 +101,20 @@
     padding: 0.5rem 1rem 0.5rem 1rem;
     width: fit-content;
     margin: 0 auto 0 auto;
+    cursor: pointer;
 }
 
 .becomeRetailer {
-    /* border: 2px solid rgb(153, 0, 255); */
     width: 50%;
-    height: 58.5vh;
+    height: 58vh;
     position: relative;
-    /* z-index: -1; */
 }
 
 .retailer {
     width: 30%;
     height: auto;
     position: absolute;
-    top: 1.5%;
+    top: 2%;
     margin-left: 35%;
 }
 
@@ -151,7 +142,7 @@
 .requirements {
     width: 100%;
     font-size: 1.5rem;
-    font-weight: 550;
+    font-weight: 450;
     text-align: center;
     margin-bottom: 2%;
 }
@@ -163,11 +154,147 @@
     font-size: 1rem;
 }
 
+/* When user is Verified Retailer */
+.verifiedRetailer {
+    width: 25%;
+    height: auto;
+    position: absolute;
+    top: 3%;
+    margin-left: 38%;
+}
+
+.verified {
+    border: 2px solid rgb(7, 232, 67);
+    width: 92%;
+    height: 82%;
+    border-radius: 1rem;
+    margin: 19% 4% 0 4%;
+    padding: 2.2rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.verified h1 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.priceControl h4 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    background-color: rgb(136, 255, 127);
+    
+}
+
+.togglePrice {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.leftLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.leftLabel img {
+    width: 30px;
+}
+
+.leftLabel h1 {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.leftLabel h2 {
+    font-size: 0.7rem;
+}
+
+/* Toggle Switch */
+.switchSlider {
+    display: block;
+    background-color: gray;
+    border-radius: 50px;
+    width: 50px;
+    height: 26px;
+    padding: 3px;
+    transition: background-color 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.switchCheckbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.switchKnob {
+    position: absolute;
+    background-color: rgb(253, 252, 252);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.4s ease;
+}
+
+.switchCheckbox:checked + .switchSlider .switchKnob{
+    transform: translateX(24px);
+}
+
+.switchCheckbox:checked + .switchSlider {
+    background-color: #60d47f;
+}
+
+.retailerInfo {
+    color: black;
+    width: 100%;
+    background-color: rgb(230, 249, 231);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.retailerInfo h5 {
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: 450;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.retailerInfo h6 {
+    margin-top: 3%;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.retailerInfo span {
+    font-weight: 550;
+}
+
+.editProfile h3 {
+    border: 2px solid gray;
+    border-radius: 0.7rem;
+    font-size: 1.5rem;
+    font-weight: 550;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    width: fit-content;
+    margin: 0 auto 0 auto;
+    cursor: pointer;
+}
+
 /*Right section */
 .rightSection {
     width: 50%;
     height: fit-content;
-    /* border: 2px solid rgb(184, 184, 21); */
     display: flex;
     flex-wrap: wrap;
     
@@ -197,6 +324,10 @@
     .editProfile {
         width: 100%;
         height: fit-content;
+    }
+
+    .editProfile img {
+        margin-bottom: 1.5rem;
     }
 
     .setting {

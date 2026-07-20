@@ -27,7 +27,7 @@ export default function Cart() {
 
         {/* for phone */}
         {
-          !address._id && <div className={styles.cartTotalPhone}>
+          !address?._id && <div className={styles.cartTotalPhone}>
           <div>
             <p>
               Cart total: <h1>₹{billingDetails.cartTotal}</h1>

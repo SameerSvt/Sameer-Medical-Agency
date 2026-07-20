@@ -1,0 +1,196 @@
+.editProfilePage {
+  width: 100vw;
+  height: 66vh;
+}
+
+.container {
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 70vw;
+  height: 54vh;
+  margin: 12vh auto;
+}
+
+.container h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.editWrapper {
+  width: 100%;
+  height: calc(100% - 1.5rem);
+  display: flex;
+}
+
+.left {
+  height: 100%;
+  flex: 0.4;
+  padding: 1rem;
+}
+
+.avatar {
+  border: 1px solid gray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  gap: 2rem;
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+}
+
+.avatar img {
+  width: 70%;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.avatar button {
+  color: white;
+  font-weight: 100;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: green;
+  border: none;
+  border-radius: 1.5rem;
+}
+
+.navigation {
+  margin-top: 2rem;
+  border-radius: 10px;
+}
+
+.navigation button {
+  font-size: 1.3rem;
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  margin: auto;
+}
+
+.right {
+  height: 100%;
+  flex: 1.2;
+}
+
+.editInfo {
+  padding: 2rem;
+  padding-bottom: 1rem;
+}
+
+.editInfo span {
+  display: inline-block;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.editInfo input {
+  width: 100%;
+  height: 40px;
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  outline: none;
+  background-color: rgb(235, 244, 250);
+}
+
+.editName {
+  margin-bottom: 1.5rem;
+}
+
+.editEmail {
+  display: flex;
+  gap: 2rem;
+}
+
+.email {
+  flex: 1;
+}
+
+.phone {
+  flex: 0.6;
+}
+
+.buttons {
+  margin-top: 1rem;
+  margin-right: 2rem;
+  display: flex;
+  justify-content: end;
+  gap: 4rem;
+}
+
+.saveButton {
+  color: white;
+  font-weight: 100;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: green;
+  border: none;
+  border-radius: 1.5rem;
+}
+
+.cancelButton {
+  color: green;
+  font-weight: 100;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: transparent;
+  border: 2px solid green;
+  border-radius: 1.5rem;
+}
+
+.security {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 2rem;
+  display: flex;
+}
+
+.password {
+  flex: 1;
+}
+
+.password h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.password span {
+  display: inline-block;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.password input {
+  width: 60%;
+  height: 30px;
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  outline: none;
+  background-color: rgb(235, 244, 250);
+}
+
+.changePassword {
+  display: flex;
+  align-items: flex-end;
+}
+
+.changePassword button {
+  width: fit-content;
+  height: fit-content;
+  color: white;
+  font-weight: 100;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: green;
+  border: none;
+  border-radius: 1.5rem;
+}

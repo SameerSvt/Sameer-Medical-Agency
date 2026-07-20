@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaRegStar } from "react-icons/fa";
 
 
-function StarRating({ totalStars = 5, onRatingChange }) {
+function StarRating({ totalStars = 5}) {
     const [rating, setRating] = useState(0)
 
     function handleStarClick(starValue) {
