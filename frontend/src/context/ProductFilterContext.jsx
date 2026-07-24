@@ -49,8 +49,6 @@ export default function ProductFilterProvider({ children }) {
         fetchProducts()
     }, [selectedFilters, searchTerm])
 
-
-
     return (
         <ProductFilterContext.Provider value={{ products, selectedFilters, clearFilter, setSelectedFilters, setSearchTerm, handleOnFilterChange }}>
             {children}

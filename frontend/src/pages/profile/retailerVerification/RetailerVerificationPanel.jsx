@@ -1,11 +1,42 @@
 import styles from './RetailerVerificationPanel.module.css'
 import ReactDOM from "react-dom"
 import { IoClose } from "react-icons/io5";
+import { useState } from 'react';
+import axios from 'axios'
+import { useAuth } from '../../../context/AuthContext.jsx';
 
 export default function RetailerVerificationPanel({ isVisible, onClose }) {
+    const {checkExistingSession} = useAuth()
+    const [info, setInfo] = useState({
+        firmName: "",
+        drugLicenseNumber: "",
+        gstNumber: ""
+    })
+
+    function handleOnChange(e) {
+        const {name, value} = e.target
+        setInfo((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+        console.log(value)
+    }
+
+    async function verifyRetailerDetails(e) {
+        e.preventDefault()
+        try {
+            const response = await axios.patch("/api/v1/users/retailer-verification", info)
+            if(response) {
+                alert(response.data?.message || "Verification details submitted successfully!")
+                checkExistingSession()
+                onClose()
+            }
+        } catch (error) {
+            alert(error.response.data?.message || "Something went wrong while submitting verification")
+        }
+    }
 
     if (!isVisible) return null;
-
 
     const panelContent = (
         <div id="retailer-panel-wrapper" className={styles.retailerPanelWrapper} onClick={onClose}>
@@ -24,28 +55,26 @@ export default function RetailerVerificationPanel({ isVisible, onClose }) {
 
                 </header>
 
-                <form className={styles.formRetailerVerification}>
+                <form className={styles.formRetailerVerification} onSubmit={verifyRetailerDetails}>
                     <div>
                         <div className={styles.firmName}>
                             <label htmlFor="firmName"> Valid Firm Name <br /></label>
-                            <input id="firmName" type="text" placeholder='Enter complete firm name' required></input>
+                            <input id="firmName" type="text" name="firmName" value={info.firmName} onChange={handleOnChange} placeholder='Enter complete firm name' required></input>
                         </div>
 
                         <div className={styles.firmName}>
-                            <label htmlFor="firmName"> Drug License Number <br /></label>
-                            <input id="firmName" type="text" placeholder='Ex: LIC/G/45678' required></input>
+                            <label htmlFor="dl"> Drug License Number <br /></label>
+                            <input id="dl" type="text" name="drugLicenseNumber" value={info.drugLicenseNumber} onChange={handleOnChange} placeholder='Ex: LIC/G/45678' required></input>
                         </div>
 
                         <div className={styles.firmName}>
-                            <label htmlFor="firmName"> GST Number <br /></label>
-                            <input id="firmName" type="text" placeholder='Ex: 12AAAAA0000A1Z5' required></input>
+                            <label htmlFor="gst"> GST Number <br /></label>
+                            <input id="gst" type="text" name="gstNumber" value={info.gstNumber} onChange={handleOnChange} placeholder='Ex: 12AAAAA0000A1Z5' required></input>
                         </div>
-
-
                     </div>
 
                     <div className={styles.verifyButton}>
-                        <button>Submit Application for Verififcation</button>
+                        <button type="submit"> Submit Application for Verififcation </button>
                     </div>
                 </form>
 

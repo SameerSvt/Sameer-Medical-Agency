@@ -25,7 +25,7 @@ export default function cartCard({cartItem}) {
           <h2>{`${product.saltComposition.charAt(0).toUpperCase() + product.saltComposition.slice(1)} 
           (${product.category.charAt(0).toUpperCase() + product.category.slice(1)})`}</h2>
           <div className={styles.pricing}>
-            <h3>₹{product.retailPrice}</h3> <h4>MRP {product.mrp}</h4> <h5>{product.discountPercentage}% off</h5>
+            <h3>₹{product.sellingPrice}</h3> <h4>MRP {product.mrp}</h4> <h5>{product.discountPercentage}% off</h5>
           </div>
         </div>
 

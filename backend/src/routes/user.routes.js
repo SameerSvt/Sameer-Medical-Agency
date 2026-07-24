@@ -5,10 +5,10 @@ import {
     loginUser,
     getCurrentUser,
     logoutUser,
-    selectAddress
+    selectAddress,
+    retailerVerification,
+    handlePricing
 } from "../controllers/user.controller.js"
-
-
 
 const router = Router()
 
@@ -17,5 +17,7 @@ router.route("/login").post(loginUser)
 router.route("/current-user").get(verifyJWT, getCurrentUser)
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/select-address").patch(verifyJWT, selectAddress)
+router.route("/retailer-verification").patch(verifyJWT, retailerVerification)
+router.route("/handle-pricing").patch(verifyJWT, handlePricing)
 
 export default router

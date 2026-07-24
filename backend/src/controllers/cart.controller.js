@@ -38,16 +38,59 @@ const addToCart = asyncHandler(async (req, res) => {
 
 })
 
-const fetchCart = asyncHandler(async (req, res) => {
+const fetchCart = asyncHandler( async(req, res) => {
+    const isB2BMode = Boolean(req.user?.isVerifiedRetailer && req.user?.isWholesaleApplied)
 
-    const cart = await Cart.findOne({ userId: req.user._id }).populate("items.productId").lean()
+    //For calculating billing details
+    let quantity = 0
+    let subtotal = 0
+    let discount = 0
+    let deliveryCharge = 0
+    let totalAmount = 0
+    let cartTotal = 0
 
-    if (!cart) {
-        return res.status(200).json(new ApiResponse(200, { items: [] }, "Cart is Empty"))
+    let responseData = {
+        cartItems: [],
+        billingDetails: {quantity, subtotal, discount, cartTotal, deliveryCharge, totalAmount}
     }
 
-    return res.status(200).json(new ApiResponse(200, cart, "Cart fetched Successfully"))
+    const cart = await Cart.findOne({userId: req.user._id}).populate("items.productId")
 
+    if(!cart || cart.items.length === 0) {
+        return res.status(200).json(new ApiResponse(200, responseData, "Cart is Empty"))
+    }
+
+    const cartObj = cart.toObject()
+
+    const Items = cartObj.items.map((item) => {
+        const product = {...item.productId}
+
+        const activePrice = isB2BMode ? product.wholesalePrice : product.retailPrice
+
+        delete product.retailPrice
+        delete product.wholesalePrice
+        product.sellingPrice = activePrice
+
+        quantity += item.quantity
+        subtotal += product.mrp * item.quantity
+        cartTotal += product.sellingPrice * item.quantity
+
+        return {
+            ...item,
+            productId: product
+        }
+    })
+
+    discount = subtotal - cartTotal
+    deliveryCharge = cartTotal <= 499 ? 49 : 0
+    totalAmount = subtotal - discount + deliveryCharge
+
+    responseData = {
+        cartItems: Items,
+        billingDetails: {quantity, subtotal, discount, cartTotal, deliveryCharge, totalAmount}
+    }
+
+    return res.status(200).json(new ApiResponse(200, responseData, "Cart fetched successfully"))
 })
 
 const removeItem = asyncHandler(async (req, res) => {
@@ -71,44 +114,9 @@ const removeItem = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, updatedCart, "Item removed from Cart"))
 })
 
-const getBillingDetails = asyncHandler(async (req, res) => {
-    const cart = await Cart.findOne({ userId: req.user._id }).populate("items.productId").lean()
-    let quantity = 0
-    let subtotal = 0
-    let discount = 0
-    let deliveryCharge = 0
-    let totalAmount = 0
-    let cartTotal = 0
-
-    if(!cart || !cart.items || cart.items.length === 0 ) {
-        return res.status(200).json(new ApiResponse(200, {quantity, subtotal, discount, cartTotal, deliveryCharge, totalAmount}))
-    }
-
-    for (let cartItem of cart.items) {
-        const item = cartItem.productId
-
-        quantity += cartItem.quantity
-        subtotal += cartItem.quantity * item.mrp
-        cartTotal += cartItem.quantity * item.retailPrice
-
-    }
-    discount = subtotal - cartTotal
-    deliveryCharge = (cartTotal > 499 || cartTotal === 0) ? 0 : 49
-    totalAmount = subtotal - discount + deliveryCharge
-
-
-    return res.status(200).json(new ApiResponse(200, {quantity, subtotal, discount, cartTotal, deliveryCharge, totalAmount}, "Billing details calculated successfully"))
-})
-
-const updateQuantity = asyncHandler( async(req, res) => {
-    const {productId, quantity} = req.body
-
-
-})
 
 export {
     addToCart,
     fetchCart,
-    removeItem,
-    getBillingDetails
+    removeItem
 }

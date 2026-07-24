@@ -5,10 +5,6 @@
     justify-content: space-between;
 }
 
-.Toaster {
-    z-index: 20000;
-}
-
 .bannerTop {
     width: 100vw;
     display: block;
@@ -18,4 +14,24 @@
     width: 100vw;
     margin-bottom: 0px;
     display: flex;
+}
+
+.B2BMode {
+    position: fixed;
+    z-index: 1000;
+    bottom: 24px;
+    right: 24px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(130%);
+    transition: opacity 0.7s ease-in-out 0.5s, transform 0.4s linear 0.5s; 
+}
+
+.active {
+    opacity: 1;
+    transform: translateX(0)
+}
+
+.B2BMode img {
+    height: 8vh; 
 }

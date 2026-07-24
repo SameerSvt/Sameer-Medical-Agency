@@ -90,7 +90,7 @@ export default function OrdersHistory() {
                                                 </div>
                                                 <div className={styles.productDetails}>
                                                     <h4> {item.productId.name.charAt(0).toUpperCase() + item.productId.name.slice(1)} </h4>
-                                                    <span>₹{item.productId.retailPrice} x {item.quantity} units = ₹{Number(item.productId.retailPrice) * Number(item.quantity)}</span>
+                                                    <span>₹{item.priceAtPurchase} x {item.quantity} units = ₹{Number(item.priceAtPurchase) * Number(item.quantity)}</span>
                                                 </div>
                                             </div>
                                         ))

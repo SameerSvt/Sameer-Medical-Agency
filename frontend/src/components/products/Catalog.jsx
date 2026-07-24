@@ -4,19 +4,19 @@ import ProductCard from './ProductCard'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useProductFilter } from '../../context/ProductFilterContext.jsx'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 
 export default function Catalog({ searchTerm, categoryTerm }) {
-  const {handleOnFilterChange, selectedFilters, products} = useProductFilter()
+  const { handleOnFilterChange, selectedFilters, products } = useProductFilter()
+  const { isWholesaleApplied } = useAuth()
 
-  
+
   const saltOptions = ["Paracetamol", "Amoxicillin", "Cefixime", "Glimepiride", "Vitamin C", "Atorvastatin", "Pantoprazole", "Ibuprofen", "Metformin", "Diclofenac"];
 
   const categoryOptions = ["Generic Drugs", "Antibiotics", "Cardiac Care", "Diabetes Care", "Pediatric Care", "Oncology Drugs", "Emergency Meds", "Surgical Equipment", "Personal Care", "Diagnostic Tools"];
 
   // const brandOptions = ["Pfizer", "Johnson", "Sanofi", "Cipla", "Abbott", "Mankind", "Lupin", "Zydus", "Alkem", "Ipca"];
-
-  const sortOptions = ["Price: Low to High", "Price: High to Low", "Better Discount"]
 
   return (
     <div>
@@ -49,17 +49,15 @@ export default function Catalog({ searchTerm, categoryTerm }) {
                     <option key={item} value={item}>{item}</option>
                   ))
                 }
-                
+
               </select>
               <hr></hr>
 
-               <select name="sort" value={selectedFilters.sort} onChange={handleOnFilterChange}>
+              <select name="sort" value={selectedFilters.sort} onChange={handleOnFilterChange}>
                 <option value="">Sort By: Relevance</option>
-                {
-                  sortOptions.map((item) => (
-                    <option key={item} value={item}>{item}</option>
-                  ))
-                }
+                <option value="Price: Low to High">Price: Low to High</option>
+                <option value="Price: High to Low">Price: High to Low</option>
+                {!isWholesaleApplied && <option value="Better Discount">Better Discount</option>}
               </select>
               <hr></hr>
 

@@ -12,7 +12,7 @@ export default function ProfileSection({ data }) {
         if (data.btn === "Logout") {
             const chk = await logout()
             if (chk) {
-                navigate('/')
+                navigate('/login')
             }
         }
         if(data.btn === "Edit Address") {

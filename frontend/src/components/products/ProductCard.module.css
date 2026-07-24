@@ -64,6 +64,10 @@
     margin-bottom: 0;
 }
 
+h4.wholesaleActive {
+    text-decoration: none;
+}
+
 .pricing h5 {
     display: inline;
     color: green;

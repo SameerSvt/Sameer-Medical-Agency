@@ -16,12 +16,13 @@ const userSchema = new Schema({
     //     enum: ["customer", "retailer", "admin"],
     //     default: "customer"
     // },
-    // isVerifiedRetailer: { type: Boolean, default: false },
-    // businessDetails: {
-    //     firmName: { type: String, trim: true },
-    //     drugLicenseNumber: { type: String, trim: true },
-    //     gstNumber: { type: String, trim: true }
-    // },
+    isVerifiedRetailer: { type: Boolean, default: false },
+    businessDetails: {
+        firmName: { type: String, trim: true },
+        drugLicenseNumber: { type: String, trim: true },
+        gstNumber: { type: String, trim: true }
+    },
+    isWholesaleApplied: {type: Boolean, default: false},
     refreshToken: {
         type: String
     }

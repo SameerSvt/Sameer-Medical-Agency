@@ -23,7 +23,7 @@ export default function OrderReviewCard({data}) {
                 <div className={styles.productInfo}>
                     <h3> {info.name.charAt(0).toUpperCase() + info.name.slice(1)} </h3>
                     <h4> {info.saltComposition.charAt(0).toUpperCase() + info.saltComposition.slice(1)} </h4>
-                    <h5> ₹{info.retailPrice} </h5>
+                    <h5> ₹{info.sellingPrice} </h5>
                 </div>
                 <div className={styles.quantity}>
                     <div className={styles.qty}>

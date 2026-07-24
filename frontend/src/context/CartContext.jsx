@@ -1,5 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "./AuthContext.jsx";
 
 const CartContext = createContext(null)
 
@@ -7,6 +8,7 @@ export default function CartProvider({ children }) {
     const [cartItems, setCartItems] = useState([])
     const [address, setAddress] = useState({})
     const [billingDetails, setBillingDetails] = useState({})
+    const { isLoggedIn} = useAuth()
 
     async function fetchAddress() {
         try {
@@ -23,12 +25,8 @@ export default function CartProvider({ children }) {
         try {
             const response = await axios.get("/api/v1/carts/fetch-cart")
             if (response) {
-                setCartItems(response?.data?.data?.items)
-            }
-
-            const billingResponse = await axios.get("/api/v1/carts/billing-details")
-            if (billingResponse) {
-                setBillingDetails(billingResponse.data?.data)
+                setCartItems(response?.data?.data?.cartItems)
+                setBillingDetails(response?.data?.data?.billingDetails)
             }
         } catch (error) {
             console.log("Error occure while fetching cart data", error)
@@ -45,12 +43,13 @@ export default function CartProvider({ children }) {
             }
         }
         fetchCart()
-    }, [])
+    }, [isLoggedIn])
 
-    async function removeItem(productId) {
+    async function removeItem(product) {
+        const productId = product._id
         try {
             const response = await axios.post("/api/v1/carts/remove-item", { productId })
-            alert(`${productId.name} removed from cart`)
+            alert(`${product.name} removed from cart`)
             await fetchCartData()
         } catch (error) {
             console.error("Error occured while removing item from cart")

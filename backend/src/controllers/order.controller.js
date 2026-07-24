@@ -10,6 +10,8 @@ const checkout = asyncHandler(async (req, res) => {
     const { paymentOption } = req.body
     const userId = req.user._id
 
+    const isB2BMode = Boolean(req.user && req.user?.isVerifiedRetailer && req.user?.isWholesaleApplied)
+
     if (!paymentOption) {
         throw new ApiError(400, "Choose payment option")
     }
@@ -31,18 +33,21 @@ const checkout = asyncHandler(async (req, res) => {
     let cartTotal = 0
 
     const items = cart.items.map((item) => {
+        const product = item.productId
 
-        subTotal += item.quantity * item.productId.mrp
-        cartTotal += item.quantity * item.productId.retailPrice
+        const activePrice = isB2BMode ? product?.wholesalePrice : product?.retailPrice
+
+        subTotal += item.quantity * product.mrp
+        cartTotal += item.quantity * activePrice
 
         return {
-            productId: item.productId._id,
+            productId: product._id,
             quantity: item.quantity,
-            priceAtPurchase: item.productId.retailPrice
+            priceAtPurchase: activePrice
         }
     })
 
-    const deliveryCharge = (cartTotal > 499 || cartTotal === 0) ? 0 : 49
+    const deliveryCharge = cartTotal <= 499 ? 49 : 0
     const discount = subTotal - cartTotal
     const totalAmount = cartTotal + deliveryCharge
 

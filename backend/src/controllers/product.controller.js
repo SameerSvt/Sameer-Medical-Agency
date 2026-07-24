@@ -59,54 +59,76 @@ const listProduct = asyncHandler(async (req, res) => {
 })
 
 const getAllProducts = asyncHandler(async (req, res) => {
-    const { search, salt, category, brand, sort } = req.query
+    const { search, salt, category, sort } = req.query
+
+    const isB2BMode = Boolean(req.user && req.user?.isVerifiedRetailer && req.user?.isWholesaleApplied)
 
     const queryObject = {}
 
-    if(search.trim() !== "") {
+    if (search?.trim()) {
+        const searchRegex = new RegExp(search.trim(), 'i')
         queryObject.$or = [
-            {name: {$regex: search.trim(), $options: 'i'}},
-            {saltComposition: {$regex: search.trim(), $options: 'i'}},
-            {category: {$regex: search.trim(), $options: 'i'}}
-        ] 
+            { name: searchRegex },
+            { saltComposition: searchRegex },
+            { category: searchRegex }
+        ]
     }
 
-    if (salt) {
-        queryObject.saltComposition = { $regex: salt, $options: 'i' }
+    if (salt?.trim()) {
+        queryObject.saltComposition = new RegExp(salt.trim(), 'i')
     }
 
-    if (category) {
-        queryObject.category = category
+    if (category?.trim()) {
+        queryObject.category = category.trim()
     }
 
-    let products
-    
-    if(!sort) {
-        // const countMatch = await Product.countDocuments(queryObject)
+    let pipeline = [{ $match: queryObject }]
 
-        products = await Product.aggregate([
-            {$match: queryObject},
-            // {$sample: {size: countMatch || 1}}
-            {$sample: {size: 100}}
-        ])
-    }
-    else {
-        let queryProducts = Product.find(queryObject).lean()
+    const targetPriceField = isB2BMode ? "wholesalePrice" : "retailPrice"
 
+    if (sort?.trim()) {
+        const sortOption = {}
         if (sort === "Price: Low to High") {
-            queryProducts = queryProducts.sort({ retailPrice: 1 })
+            sortOption[targetPriceField] = 1
         }
         if (sort === "Price: High to Low") {
-            queryProducts = queryProducts.sort({ retailPrice: -1 })
+            sortOption[targetPriceField] = -1
         }
-        if (sort === "Better Discount") {
-            queryProducts = queryProducts.sort({ discountPercentage: -1 })
+        if (!isB2BMode) {
+            if (sort === "Better Discount") {
+                sortOption.discountPercentage = -1
+            }
         }
 
-        products = await queryProducts
+        if (Object.keys(sortOption).length > 0) {
+            pipeline.push({ $sort: sortOption })
+        }
+    } else {
+        pipeline.push({ $sample: { size: 100 } })
     }
 
+    if (isB2BMode) {
+        pipeline.push(
+            {
+                $project: {
+                    discountPercentage: 0
+                }
+            },
+            {
+                $addFields: {
+                    retailPrice: "$wholesalePrice"
+                }
+            }
+        )
+    } else {
+        pipeline.push({
+            $project: {
+                wholesalePrice: 0
+            }
+        })
+    }
 
+    const products = await Product.aggregate(pipeline)
 
     return res.status(200).json(
         new ApiResponse(
@@ -115,7 +137,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
             "Products fetched from database"
         )
     )
-
 })
 
 export {

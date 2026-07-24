@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createContext, useContext, useState, useEffect } from "react";
-// axios.defaults.withCredentials = true;
 
 const AuthContext = createContext(null)
 
@@ -9,23 +8,23 @@ export default function AuthProvider ({children}) {
     const [user, setUser] = useState(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [cartCount, setCartCount] = useState(0)
+    const [isWholesaleApplied, setIsWholesaleApplied] = useState(user?.isWholesaleApplied)
 
 
     const login = (userData) => {
         setUser(userData)
         setIsLoggedIn(true)
+        setLoading(false)
         console.log("user data stored using login")
     }
 
-    useEffect( () => {
-
-        const checkExistingSession = async () => {
+    const checkExistingSession = async () => {
 
             try {
                 const response = await axios.get("/api/v1/users/current-user")
-                if(response?.data.data) {
+                if(response?.data?.data) {
                     setUser(response.data.data)
+                    setIsWholesaleApplied(response.data.data?.isWholesaleApplied)
                     setIsLoggedIn(true)
                     console.log("user data stored using useEffect")
                 }
@@ -36,9 +35,6 @@ export default function AuthProvider ({children}) {
                 setLoading(false)
             }
         }
-
-        checkExistingSession()
-    }, [isLoggedIn])
 
     const logout = async () => {
         try {
@@ -55,8 +51,12 @@ export default function AuthProvider ({children}) {
         }
     }
 
+     useEffect( () => {
+        checkExistingSession()
+    }, [])
+
     return (
-        <AuthContext.Provider value={{user, isLoggedIn, loading, cartCount, setCartCount, login, logout}}>
+        <AuthContext.Provider value={{user, isLoggedIn, loading, login, logout, isWholesaleApplied, setIsWholesaleApplied, checkExistingSession}}>
             {!loading && children}
         </AuthContext.Provider>
     )

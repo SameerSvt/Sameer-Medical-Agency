@@ -1,52 +1,50 @@
 import { asyncHandler } from "../utils/asyncHandler.js"
-import {User} from "../models/user.model.js"
-import {ApiError} from "../utils/ApiError.js"
-import {ApiResponse} from "../utils/ApiResponse.js"
+import { User } from "../models/user.model.js"
+import { ApiError } from "../utils/ApiError.js"
+import { ApiResponse } from "../utils/ApiResponse.js"
 
 const generateAccessTokenAndRefreshToken = async (userId) => {
     try {
         const user = await User.findById(userId)
-    
+
         const accessToken = user.generateAccessToken()
         const refreshToken = user.generateRefreshToken()
-    
+
         user.refreshToken = refreshToken
-    
-        await user.save({validateBeforeSave: false})
-    
-        return {accessToken, refreshToken}
+
+        await user.save({ validateBeforeSave: false })
+
+        return { accessToken, refreshToken }
     } catch (error) {
         throw new ApiError(500, "Something went wrong while generating referesh and access token")
     }
 }
 
-const signUpUser = asyncHandler( async (req, res) => {
+const signUpUser = asyncHandler(async (req, res) => {
 
-    //getting data
-    const {fullName, email, phone, password} = req.body
+    const { fullName, email, phone, password } = req.body
 
-    //validation
-    if([fullName, email, phone, password].some((field) => field?.trim() === "")) {
+    if ([fullName, email, phone, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All fields are required")
     }
     const phoneStr = String(phone).trim()
-    if(phoneStr.length !== 10) {
+    if (phoneStr.length !== 10) {
         throw new ApiError(400, "Phone number must be of 10 digits")
     }
 
     const existedUser = await User.findOne({
-        $or: [{email}, {phone}]
+        $or: [{ email }, { phone }]
     })
 
-    if(existedUser) {
+    if (existedUser) {
         throw new ApiError(400, "User already exists try another email or phone")
     }
 
-    const user = await User.create({fullName, email, phone, password})
+    const user = await User.create({ fullName, email, phone, password })
 
     const createdUser = await User.findById(user._id).select("-password -refreshToken")
 
-    if(!createdUser) {
+    if (!createdUser) {
         throw new ApiError(500, "Something went wrong while registering the user")
     }
 
@@ -54,37 +52,37 @@ const signUpUser = asyncHandler( async (req, res) => {
 })
 
 
-const loginUser = asyncHandler( async(req, res) => {
-    const {credential, password} = req.body
+const loginUser = asyncHandler(async (req, res) => {
+    const { credential, password } = req.body
 
     const loginCredential = credential?.trim()
     const passwordStr = password?.trim()
-    
-    if(!loginCredential || !passwordStr) {
+
+    if (!loginCredential || !passwordStr) {
         console.log("Email/Phone and Password is required");
-        
+
         throw new ApiError(400, "Email/Phone and Password is required")
     }
 
     const user = await User.findOne({
         $or: [
-            { email: loginCredential},
-            {phone: loginCredential}
+            { email: loginCredential },
+            { phone: loginCredential }
         ]
     })
 
-    if(!user) {
+    if (!user) {
         console.log("User with Email/Phone doesn't exists");
         throw new ApiError(400, "User with Email/Phone doesn't exists")
     }
 
     const isPasswordValid = await user.isPasswordCorrect(passwordStr)
 
-    if(!isPasswordValid) {
+    if (!isPasswordValid) {
         throw new ApiError(400, "Incorrect Password")
     }
 
-    const {accessToken, refreshToken} = await generateAccessTokenAndRefreshToken(user._id)
+    const { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(user._id)
 
     //const loggedinUser = await User.findById(user._id).select("-password -refreshToken")
     const loggedinUser = user.toObject()
@@ -98,39 +96,39 @@ const loginUser = asyncHandler( async(req, res) => {
 
     console.log("Login Successfull")
     return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json(
-        new ApiResponse(
-            200, 
-            {
-                user: loggedinUser,
-                accessToken,
-                refreshToken
-            },
-            "Login Successfull"
-    ))
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    user: loggedinUser,
+                    accessToken,
+                    refreshToken
+                },
+                "Login Successfull"
+            ))
 
 })
 
-const getCurrentUser = asyncHandler(async(req, res) => {
+const getCurrentUser = asyncHandler(async (req, res) => {
 
     let user = req.user
 
-    if(req.query.populate === "address") {
+    if (req.query.populate === "address") {
         user = await req.user.populate("activeAddressId")
     }
-    
-    if(!user) {
+
+    if (!user) {
         throw new ApiError(400, "Unable to get Address")
     }
 
     return res.status(200).json(new ApiResponse(200, user, "User fetched Successfully"))
 })
 
-const logoutUser = asyncHandler( async (req, res) => {
-    
+const logoutUser = asyncHandler(async (req, res) => {
+
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -147,18 +145,18 @@ const logoutUser = asyncHandler( async (req, res) => {
     }
 
     return res
-    .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
-    .json(new ApiResponse(
-        200, {}, "User logged out"
-    ))
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(new ApiResponse(
+            200, {}, "User logged out"
+        ))
 })
 
-const selectAddress = asyncHandler( async (req, res) => {
-    const {addressId} = req.body
+const selectAddress = asyncHandler(async (req, res) => {
+    const { addressId } = req.body
 
-    if(!addressId) {
+    if (!addressId) {
         throw new ApiError(400, "Address Id is required")
     }
 
@@ -169,14 +167,68 @@ const selectAddress = asyncHandler( async (req, res) => {
                 activeAddressId: addressId
             }
         },
-        {returnDocument: "after"}
+        { returnDocument: "after" }
     ).populate("activeAddressId")
 
-    if(!updatedAddress) {
+    if (!updatedAddress) {
         throw new ApiError(500, "Unable to select address")
     }
 
     res.status(200).json(new ApiResponse(200, updatedAddress.activeAddressId, "Address Selected"))
+})
+
+const retailerVerification = asyncHandler(async (req, res) => {
+    const { firmName, drugLicenseNumber, gstNumber } = req.body
+
+    if ([firmName, drugLicenseNumber, gstNumber].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "All fields are required")
+    }
+
+    const verification = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                businessDetails: {
+                    firmName,
+                    drugLicenseNumber,
+                    gstNumber
+                },
+                isVerifiedRetailer: true
+            }
+        },
+        { returnDocument: "after" }
+    ).select("-password -refreshToken")
+
+    if (!verification) {
+        throw new ApiError(500, "Unable to verify business details")
+    }
+
+    return res.status(200).json(new ApiResponse(200, verification, "Congratulations! You are a verfied retailer now."
+    ))
+})
+
+const handlePricing = asyncHandler( async (req, res) => {
+    const { togglePrice } = req.body
+
+    if(typeof togglePrice !== "boolean" || !req.user.isVerifiedRetailer) {
+        throw new ApiError(400, "Invalid request.")
+    }
+
+    const updatedPricing = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                isWholesaleApplied: togglePrice
+            }
+        },
+        {returnDocument: "after"}
+    )
+
+    if(!updatedPricing) {
+        throw new ApiError(500, "Unable to change pricing")
+    }
+
+    return res.status(200).json(new ApiResponse(200, {isWholesaleApplied: updatedPricing.isWholesaleApplied}, "Pricing Changed Successfully"))
 })
 
 export {
@@ -184,5 +236,7 @@ export {
     loginUser,
     getCurrentUser,
     logoutUser,
-    selectAddress
+    selectAddress,
+    retailerVerification,
+    handlePricing
 }

@@ -36,9 +36,11 @@ export default function Login() {
     e.preventDefault()
     try {
       const response = await axios.post("/api/v1/users/login", formData)
-      login(response.data.data)
+      if(response) {
+        login(response.data?.data?.user)
       alert(response.data?.message || "Login successfully")
       navigate('/')
+      }
     } catch (error) {
       console.error(error)
       alert(error.response?.data?.message || "Something went wrong. Please try again.")

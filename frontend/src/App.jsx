@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { useState } from "react";
+import { useAuth } from "./context/AuthContext.jsx";
 
 import Home from "./pages/home/Home.jsx";
 import AboutUs from "./pages/aboutUs/AboutUs.jsx";
@@ -19,12 +20,17 @@ import EditProfile from "./pages/profile/editProfile/EditProfile.jsx"
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryTerm, setCategoryTerm] = useState("All");
+  const {isWholesaleApplied} = useAuth()
   return (
     <>
       <div>
         <img className="bannerTop" src="myAssets/BannerTop.png"></img>
 
         <Navbar />
+
+        <div className={`B2BMode ${isWholesaleApplied ? 'active' : ""}`}>
+          <img src="/myAssets/B2BMode.png"></img>
+        </div>
 
         <Routes>
           <Route path="/" element={<Home />} />
