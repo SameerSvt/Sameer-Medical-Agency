@@ -18,6 +18,8 @@
     padding: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
+    background-color: none;
+    transition: background-color 0.4s ease;
 }
 
 .catPanelItem:hover {

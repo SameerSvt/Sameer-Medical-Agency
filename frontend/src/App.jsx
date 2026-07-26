@@ -3,6 +3,8 @@ import "./App.css";
 import { useState } from "react";
 import { useAuth } from "./context/AuthContext.jsx";
 
+import Navbar from "./components/navbar/Navbar.jsx";
+import Footer from "./components/footer/Footer.jsx"
 import Home from "./pages/home/Home.jsx";
 import AboutUs from "./pages/aboutUs/AboutUs.jsx";
 import Cart from "./pages/cart/Cart.jsx";
@@ -10,7 +12,6 @@ import Login from "./pages/login/Login.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import UploadPrescription from "./pages/uploadPrescription/UploadPrescription.jsx";
-import Navbar from "./components/navbar/Navbar.jsx";
 import Catalog from "./components/products/Catalog.jsx";
 import Checkout from "./pages/checkout/Checkout.jsx"
 import Address from "./pages/profile/address/Address.jsx";
@@ -48,9 +49,7 @@ function App() {
         </Routes>
       </div>
 
-      <div className="footer">
-        <img src="myAssets/Footer.png" className="footerImg"></img>
-      </div>
+      <Footer />
     </>
   );
 }

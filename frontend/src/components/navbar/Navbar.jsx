@@ -3,10 +3,10 @@ import styles from './Navbar.module.css'
 import { FaSearch, FaCloudUploadAlt } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
+import { FaUserNurse, FaCartPlus } from "react-icons/fa6";
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useCart } from '../../context/CartContext.jsx';
-import { FaUserNurse, FaCartPlus } from "react-icons/fa6";
 import { useProductFilter } from '../../context/ProductFilterContext.jsx';
 
 

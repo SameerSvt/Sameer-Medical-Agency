@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
 }
 
 @media (max-width: 768px) {
