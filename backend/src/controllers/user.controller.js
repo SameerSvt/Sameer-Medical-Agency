@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js"
 import { User } from "../models/user.model.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
+import { uploadOnCloudinary } from "../utils/cloudinary.js"
 
 const generateAccessTokenAndRefreshToken = async (userId) => {
     try {
@@ -207,10 +208,10 @@ const retailerVerification = asyncHandler(async (req, res) => {
     ))
 })
 
-const handlePricing = asyncHandler( async (req, res) => {
+const handlePricing = asyncHandler(async (req, res) => {
     const { togglePrice } = req.body
 
-    if(typeof togglePrice !== "boolean" || !req.user.isVerifiedRetailer) {
+    if (typeof togglePrice !== "boolean" || !req.user.isVerifiedRetailer) {
         throw new ApiError(400, "Invalid request.")
     }
 
@@ -221,14 +222,124 @@ const handlePricing = asyncHandler( async (req, res) => {
                 isWholesaleApplied: togglePrice
             }
         },
-        {returnDocument: "after"}
+        { returnDocument: "after" }
     )
 
-    if(!updatedPricing) {
+    if (!updatedPricing) {
         throw new ApiError(500, "Unable to change pricing")
     }
 
-    return res.status(200).json(new ApiResponse(200, {isWholesaleApplied: updatedPricing.isWholesaleApplied}, "Pricing Changed Successfully"))
+    return res.status(200).json(new ApiResponse(200, { isWholesaleApplied: updatedPricing.isWholesaleApplied }, "Pricing Changed Successfully"))
+})
+
+const editProfile = asyncHandler(async (req, res) => {
+    const { fullName, email } = req.body
+
+    if ([fullName, email].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "Name & Email required")
+    }
+
+    if (email !== req.user?.email) {
+        const existedUser = await User.findOne({ email })
+        if (existedUser) {
+            throw new ApiError(400, "User with this email already exists")
+        }
+    }
+
+    const updatedProfile = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                fullName,
+                email
+            }
+        },
+        { returnDocument: "after" }
+    )
+
+    if (!updatedProfile) {
+        throw new ApiError(500, "Something went wrong, Unable to change profile")
+    }
+
+    return res.status(200).json(new ApiResponse(200, updatedProfile, "Your profile is updated"))
+})
+
+const changePassword = asyncHandler(async (req, res) => {
+    const { oldPassword, newPassword, confirmPassword } = req.body
+
+    // 1. Check for missing/empty fields
+    if ([oldPassword, newPassword, confirmPassword].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "All fields are required");
+    }
+
+    // 2. Check if new password matches confirmation
+    if (newPassword !== confirmPassword) {
+        throw new ApiError(400, "New password and confirm password do not match");
+    }
+
+    // 3. Prevent re-using the current password
+    if (oldPassword === newPassword) {
+        throw new ApiError(400, "New password must be different from old password");
+    }
+
+    const user = await User.findById(req.user?._id)
+
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
+
+
+    if (!isPasswordCorrect) {
+        throw new ApiError(400, "Invalid old Password")
+    }
+
+    user.password = newPassword
+    await user.save({ validateBeforeSave: false })
+
+    const updatedUser = user.toObject()
+    delete updatedUser.password
+    delete updatedUser.refreshToken
+
+    return res.status(200).json(new ApiResponse(200, updatedUser, "Password changed successfully"
+    ))
+})
+
+const editAvatar = asyncHandler(async (req, res) => {
+    const avatarLocalPath = req.file?.path
+
+    if (!avatarLocalPath) {
+        throw new ApiError(400, "Image file not uploaded")
+    }
+
+    const uploadedAvatar = await uploadOnCloudinary(avatarLocalPath)
+
+    if (!uploadedAvatar?.url) {
+        throw new ApiError(500, "Unable to upload Image on Cloudinary")
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                avatar: uploadedAvatar.url
+            }
+        },
+        {returnDocument: "after"}
+    ).select("-password -refreshToken");
+
+    if (!updatedUser) {
+        throw new ApiError(500, "Failed to update avatar in database");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            updatedUser,
+            "Avatar changed successfully"
+        )
+    )
 })
 
 export {
@@ -238,5 +349,8 @@ export {
     logoutUser,
     selectAddress,
     retailerVerification,
-    handlePricing
+    handlePricing,
+    editProfile,
+    changePassword,
+    editAvatar
 }

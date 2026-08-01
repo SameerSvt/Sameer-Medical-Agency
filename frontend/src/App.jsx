@@ -19,8 +19,6 @@ import OrdersHistory from "./pages/profile/ordersHistory/OrdersHistory.jsx";
 import EditProfile from "./pages/profile/editProfile/EditProfile.jsx"
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [categoryTerm, setCategoryTerm] = useState("All");
   const {isWholesaleApplied} = useAuth()
   return (
     <>

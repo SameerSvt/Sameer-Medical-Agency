@@ -56,10 +56,6 @@ export default function Profile() {
     }, 400)
   }
 
-  async function handleCheckbox() {
-
-  }
-
   return (
     <>
       <div className={styles.profile}>
@@ -88,7 +84,7 @@ export default function Profile() {
                   </div>
                 </div>
 
-                <img src="/profile/Avatar.png"></img>
+                <img src={user?.avatar ? user.avatar : "/profile/Avatar.png"}></img>
                 <h3 onClick={() => navigate("/edit-profile")}>Edit Profile</h3>
               </div>
             </div>

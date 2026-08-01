@@ -83,7 +83,7 @@ export default function Login() {
           <div className={styles.emailPhone}>
             <FaKey className={styles.iconKey} />
             <input type={showPassword ? "text" : "password"} className={styles.password} placeholder="PASSWORD" name="password" value={formData.password} onChange={handleOnChange}></input>
-            {showPassword ? <IoMdEye className={styles.iconEyeOff} onClick={handleEyeIconClick}/> : <IoMdEyeOff className={styles.iconEyeOff} onClick={handleEyeIconClick}/>}
+            {!showPassword ? <IoMdEye className={styles.iconEyeOff} onClick={handleEyeIconClick}/> : <IoMdEyeOff className={styles.iconEyeOff} onClick={handleEyeIconClick}/>}
           </div>
 
           <button className={styles.loginButton} type="submit">LOGIN</button>

@@ -7,8 +7,12 @@ import {
     logoutUser,
     selectAddress,
     retailerVerification,
-    handlePricing
+    handlePricing,
+    changePassword,
+    editProfile,
+    editAvatar
 } from "../controllers/user.controller.js"
+import { upload } from "../middlewares/multer.middleware.js"
 
 const router = Router()
 
@@ -19,5 +23,8 @@ router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/select-address").patch(verifyJWT, selectAddress)
 router.route("/retailer-verification").patch(verifyJWT, retailerVerification)
 router.route("/handle-pricing").patch(verifyJWT, handlePricing)
+router.route("/edit-profile").patch(verifyJWT, editProfile)
+router.route("/change-password").put(verifyJWT, changePassword)
+router.route("/edit-avatar").put(verifyJWT, upload.single("avatar"), editAvatar)
 
 export default router

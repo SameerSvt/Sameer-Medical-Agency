@@ -56,7 +56,7 @@ export default function AuthProvider ({children}) {
     }, [])
 
     return (
-        <AuthContext.Provider value={{user, isLoggedIn, loading, login, logout, isWholesaleApplied, setIsWholesaleApplied, checkExistingSession}}>
+        <AuthContext.Provider value={{user, setUser, isLoggedIn, loading, login, logout, isWholesaleApplied, setIsWholesaleApplied, checkExistingSession}}>
             {!loading && children}
         </AuthContext.Provider>
     )
