@@ -1,5 +1,4 @@
 .productCard {
-    /* border: 2px solid rgb(42, 197, 33); */
     border-radius: 15px;
     width: 30vw;
     height: auto;
@@ -10,11 +9,10 @@
     padding: 1vw;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+    box-shadow: 0 0 10px 1px rgb(133, 132, 132);
 }
 
 .productCardImage {
-    /* border: 2px solid black; */
     width: 40%;
     height: auto;
     margin-right: 5px;
@@ -27,7 +25,6 @@
 
 .details {
     flex-grow: 1;
-    /* border: 2px solid black; */
     padding: 1rem;
 }
 
@@ -44,14 +41,12 @@
 .pricing {
     margin: 5px;
     margin-left: 0;
-    /* border: 1px solid black; */
 }
 
 .pricing h3 {
     font-weight: 600;
     font-size: 1.5rem;
     display: inline;
-
 }
 
 .pricing h4 {
@@ -94,7 +89,7 @@ h4.wholesaleActive {
     }
 
     .details h1 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .details h2 {
@@ -114,7 +109,7 @@ h4.wholesaleActive {
     }
 
     .details button {
-        font-size: 1rem;
+        font-size: 1.2rem;
         width: 90%;
     }
 }

@@ -13,10 +13,16 @@ export default function Cart() {
   const { cartItems, address, billingDetails, cartCount, fetchCartData, fetchAddress } = useCart()
 
   function handleCheckout() {
-    if (billingDetails.quantity !== 0) {
+    if (billingDetails.quantity !== 0 && address) {
       navigate("/checkout")
     } else {
-      alert("Add product in cart")
+      if (billingDetails.quantity === 0) {
+        alert("Add product in cart")
+      }
+      if (!address) {
+        alert("Add Address")
+      }
+
     }
   }
 
@@ -36,7 +42,7 @@ export default function Cart() {
                 </div>
                 <hr></hr>
                 <div>
-                  <button className={styles.addressButton} onClick={() => navigate("address")}>
+                  <button className={styles.addressButton} onClick={() => navigate("/address")}>
                     Add Delivery Address
                     <HiArrowRightCircle className={styles.iconRightArrow} />
                   </button>
@@ -47,7 +53,7 @@ export default function Cart() {
             <div className={styles.cartItems}>
               {
                 cartItems.map((cartItem) => (
-                  <CartCard cartItem={cartItem} key={cartItem?.productId}/>
+                  <CartCard cartItem={cartItem} key={cartItem?.productId?._id} />
                 ))
               }
             </div>
@@ -77,9 +83,8 @@ export default function Cart() {
                   <div className={styles.info}>
                     <h5>{address.name}</h5>
                     <p>
-                      {`${address.landmark}, ${address.areaDetails}, ${address.city}, ${address.state}, ${address.pincode}`}
+                      {`${address.landmark}, ${address.areaDetails}, ${address.city}, ${address.state}, ${address.pincode}`} <br /> Contact: {address.contact}
                     </p>
-                    <h4>Contact: {address.contact}</h4>
                   </div>
                 </div>
 

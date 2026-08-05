@@ -33,11 +33,13 @@ export default function Checkout() {
           <h6>Deliver To</h6>
           <hr></hr>
           <div className={styles.deliveryDetails}>
-            <h3>{address?.name}</h3>
-            <p>{`${address?.landmark}, ${address?.areaDetails}, ${address?.city}, ${address?.state}, ${address?.pincode}`}</p>
-            <h1> Contact: {address?.contact}</h1>
+            {
+              address ? <div> <h3>{address?.name}</h3>
+            <p>{`${address?.landmark}, ${address?.areaDetails}, ${address?.city}, ${address?.state}, ${address?.pincode}`} <br/> Contact: {address?.contact}</p>
+            </div>: <div> </div>
+            }
             <div className={styles.addressButtons}>
-              <button className={styles.addressButton} onClick={() => navigate("/address")}>Change Address</button>
+              <button className={styles.addressButton} onClick={() => navigate("/address")}>{address ? "Change Address" : "Add Address"}</button>
             </div>
           </div>
 

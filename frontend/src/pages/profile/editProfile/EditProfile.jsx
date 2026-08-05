@@ -122,7 +122,7 @@ export default function EditProfile() {
                                     <input type="file" accept=".png,.jpg.,jpeg" id="openFile" style={{ display: "none" }} onChange={onChangeOpenFile} />
                                 </label>
                             </div>
-                            <img src={!previewAvatarURL ? user?.avatar : previewAvatarURL}></img>
+                            <img src={!previewAvatarURL ? user?.avatar || "/profile/Avatar.png" : previewAvatarURL }></img>
                             {previewAvatarURL && <button onClick={handleUpdateAvatar}> Edit Avatar </button>}
                         </div>
 

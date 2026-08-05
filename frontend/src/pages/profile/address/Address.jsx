@@ -10,15 +10,19 @@ export default function Address() {
 
     const[activeAddressId, setActiveAddressId] = useState()
 
-    const [addressData, setAddressData] = useState({
-        name: "",
+    const initialAddressData = {
+name: "",
         contact: "",
         state: "",
         city: "",
         pincode: "",
         areaDetails: "",
         landmark: ""
-    })
+    }
+
+    const [addressData, setAddressData] = useState(initialAddressData)
+
+    const state = [ "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal" ] 
 
     async function fetchAddress() {
         try {
@@ -58,16 +62,17 @@ export default function Address() {
         setShowCard(true)
     }
 
-    const addNewAddress = async () => {
+    const addNewAddress = async (e) => {
+        e.preventDefault()
         try {
             const response = await axios.post("/api/v1/address/add-new-address", addressData)
             if (response) {
                 alert(response.data?.message || "Address Saved")
                 setShowCard(false)
+                setAddressData(initialAddressData)
                 fetchAddress()
             }
         } catch (error) {
-            console.error(error)
             alert(error.response?.data?.message || "Unable to save address")
         }
     }
@@ -94,58 +99,58 @@ export default function Address() {
                 <h6>Add New Address</h6>
 
                 {!showCard && <div className={styles.editCardButton}>
-                    <button onClick={handleShowCard}><pre>+  Add</pre></button>
+                    <button onClick={handleShowCard}><pre>+  ADD</pre></button>
                 </div>}
 
                 {
-                    showCard && <div >
+                    showCard && <form onSubmit={addNewAddress}>
                         <div className={styles.editCard}>
                             <div className={styles.card}>
                                 <p>Provide details for your delivery location:</p>
                                 <div className={styles.nameContainer}>
                                     <div className={styles.name}>
                                         <h3>Name</h3>
-                                        <input type="text" name="name" value={addressData.name} onChange={handleOnInputChange}></input>
+                                        <input type="text" name="name" value={addressData.name} onChange={handleOnInputChange} required></input>
                                     </div>
                                     <div className={styles.phone}>
                                         <h3>Contact no.</h3>
-                                        <input type="text" name="contact" value={addressData.contact} onChange={handleOnInputChange}></input>
+                                        <input type="text" name="contact" value={addressData.contact} onChange={handleOnInputChange} required></input>
                                     </div>
                                 </div>
 
                                 <div className={styles.state}>
                                     <h3>State</h3>
-                                    <select name="state" value={addressData.state} onChange={handleOnInputChange}>
+                                    <select name="state" value={addressData.state} onChange={handleOnInputChange} required>
                                         <option value="" disabled>Select State</option>
-                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                        <option value="Maharashtra">Maharashtra</option>
-                                        <option value="Rajasthan">Rajasthan</option>
-                                        <option value="Punjab">Punjab</option>
-                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        {
+                                            state.map((item) => (
+                                                <option value={item} key={item}>{item}</option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                                 <div className={styles.cityContainer}>
                                     <div>
                                         <h3>City</h3>
-                                        <input type="text" name="city" value={addressData.city} onChange={handleOnInputChange}></input>
+                                        <input type="text" name="city" value={addressData.city} onChange={handleOnInputChange} required></input>
                                     </div>
                                     <div>
                                         <h3>Pincode</h3>
-                                        <input type="text" name="pincode" value={addressData.pincode} onChange={handleOnInputChange}></input>
+                                        <input type="text" name="pincode" value={addressData.pincode} onChange={handleOnInputChange} required></input>
                                     </div>
                                 </div>
                                 <div>
                                     <h3>Area Details</h3>
-                                    <textarea type="text" name="areaDetails" value={addressData.areaDetails} onChange={handleOnInputChange}></textarea>
+                                    <textarea type="text" name="areaDetails" value={addressData.areaDetails} onChange={handleOnInputChange} required></textarea>
                                 </div>
                                 <div >
                                     <h3>Landmark</h3>
-                                    <input type="text" name="landmark" value={addressData.landmark} onChange={handleOnInputChange}></input>
+                                    <input type="text" name="landmark" value={addressData.landmark} onChange={handleOnInputChange} required></input>
                                 </div>
                             </div>
                         </div>
-                        <button className={styles.saveAddress} onClick={addNewAddress}>Save New Address</button>
-                    </div>
+                        <button className={styles.saveAddress}>Save New Address</button>
+                    </form>
                 }
             </div>
         </div>

@@ -74,10 +74,10 @@ export default function OrdersHistory() {
                     orderData.length !== 0 ? orderData.map((order) => (
                         <div key={order._id} className={styles.orderCard}>
                             <div className={styles.header}>
-                                <h1>Order ID: <span>#SAM-{order._id.substring(18).toUpperCase()}</span></h1>
-                                <h1>Ordern Date: <span>{new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span></h1>
-                                <h1> Order Status: <span>{order.orderStatus}</span></h1>
-                                <h1>Order Amount: <span>₹{order.billingDetails.totalAmount}</span></h1>
+                                <h1>Order ID: <br className={styles.break}/> <span>#SAM-{order._id.substring(18).toUpperCase()}</span></h1>
+                                <h1>Ordern Date: <br className={styles.break}/> <span>{new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span></h1>
+                                <h1> Order Status: <br className={styles.break}/> <span>{order.orderStatus}</span></h1>
+                                <h1>Order Amount: <br className={styles.break}/> <span>₹{order.billingDetails.totalAmount}</span></h1>
                             </div>
                             <hr></hr>
                             <div className={styles.orderDetails}>
@@ -106,7 +106,7 @@ export default function OrdersHistory() {
                                     <button className={styles.buyAgain}>Buy Again</button>
                                     <button className={styles.viewDetails}>View Details</button>
                                     <div className={styles.downloadInvoice}>
-                                        <TbFileInvoice className={styles.fileIcon} />
+                                        <TbFileInvoice size="20px" className={styles.fileIcon} />
                                         <a href="#" >Download Invoice</a>
                                     </div>
                                 </div>

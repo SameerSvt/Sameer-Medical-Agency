@@ -211,8 +211,6 @@
 }
 
 .changePassword button {
-  width: fit-content;
-  height: fit-content;
   color: white;
   font-weight: 100;
   padding: 0.5rem 1.5rem;
@@ -221,4 +219,90 @@
   border: none;
   border-radius: 1.5rem;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .editProfilePage {
+  min-height: 78vh;
+  height: auto;
+}
+
+.container {
+  border: none;
+  width: 90vw;
+  height: fit-content;
+  margin: 3vh 5vw;
+}
+
+.editWrapper {
+  flex-direction: column;
+}
+
+.left {
+  padding-bottom: 0;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.avatar img {
+  width: 80px;
+  height: 80px;
+}
+
+.avatar button {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.navigation {
+  display: none;
+}
+
+.editInfo {
+  padding: 2rem 0;
+  padding-bottom: 1rem;
+}
+
+.editInfo input {
+  height: fit-content;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.phone {
+  flex: 0.5;
+}
+
+.saveButton {
+  font-weight: 400;
+}
+
+.cancelButton {
+  font-weight: 400;
+}
+
+.security {
+  border: 1px solid black;
+  margin: 0;
+  margin-top: 4rem;
+
+}
+
+.password {
+  flex: 1;
+}
+
+.password input {
+  width: 70%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.changePassword button {
+  font-weight: 400;
+}
+
 }

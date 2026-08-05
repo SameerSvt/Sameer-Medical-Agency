@@ -108,3 +108,9 @@
   margin-bottom: 3rem;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .verifyButton button {
+    margin-bottom: 15vh;
+  }
+}

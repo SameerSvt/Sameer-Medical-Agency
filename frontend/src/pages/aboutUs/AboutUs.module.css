@@ -1,5 +1,3 @@
-
-
 .HeroImg {
   width: 100vw;
   display: flex;
@@ -17,8 +15,8 @@
 }
 
 .text1 p {
-    color: #5e6060;
-  font-weight: lighter;
+  color: #5e6060;
+  font-weight: 400;
   margin-top: 0.5rem;
   text-align: justify;
   line-height: 1.5rem;
@@ -31,139 +29,131 @@
 }
 
 .corePillars {
-    width: 100vw;
-
+  width: 100vw;
 }
 
 .wellnessHub {
-    margin: 4vw 5vw;
+  margin: 4vw 5vw;
   width: 90vw;
   display: flex;
   justify-content: flex-end;
 }
 
 .wellnessHub img {
-    width: 75vw;
-    border-radius: 3rem;
-    border-top-right-radius: 0;
-    align-items:flex-end;
+  width: 75vw;
+  border-radius: 3rem;
+  border-top-right-radius: 0;
+  align-items: flex-end;
 }
 
 .wellnessJourney {
-    margin: 4vw 5vw;
+  margin: 4vw 5vw;
   width: 90vw;
 }
 
 .wellnessJourney img {
-    width: 65vw;
-    border-radius: 3rem;
-    border-top-left-radius: 0;
+  width: 65vw;
+  border-radius: 3rem;
+  border-top-left-radius: 0;
 }
 
 .infrastructure {
-    width: 100vw;
+  width: 100vw;
 }
 
 .addressMap {
-     background-color: #e8ebeb;
-     border-radius: 10px;
-    margin: 4vw 20vw;
-    width: 60vw;
-    height: 25vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
+  background-color: #e8ebeb;
+  border-radius: 10px;
+  margin: 4vw 20vw;
+  width: 60vw;
+  height: 25vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
 .address {
-    flex: 1;
-    height: 100%;
-    padding-left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-
+  flex: 1;
+  height: 100%;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.address h2{
-    width: fit-content;
-    color: rgb(54, 119, 98);
-    background-color: rgb(205, 245, 229);
-    padding: 0.4rem 1rem;
-    border-radius: 1rem;
+.address h2 {
+  width: fit-content;
+  color: rgb(54, 119, 98);
+  background-color: rgb(205, 245, 229);
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
 }
 
 .address h1 {
-    font-size: 2rem;
-    font-weight: bold;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .address p {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
-.address a{
-    width: fit-content;
-    color: white;
-    text-decoration: none;
-    background-color: rgb(61, 141, 104);
-    border: transparent;
-    border-radius: 10px;
-    padding: 0.5rem 1rem;
+.address a {
+  width: fit-content;
+  color: white;
+  text-decoration: none;
+  background-color: rgb(61, 141, 104);
+  border: transparent;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
 }
 
 .map {
-    flex: 1;
-    height: 100%;
+  flex: 1;
+  height: 100%;
 }
 .map iframe {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 @media (max-width: 768px) {
-    .addressMap {
-        background-color: #e8ebeb;
+    .text1 p {
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}
+
+  .addressMap {
     flex-direction: column;
     margin: 4vw 5vw;
     width: 90vw;
     height: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 10px;
-    padding: 1rem;
-    border-radius: 10px;
+  }
+  .address {
+    width: 100%;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .address h2 {
+    font-size: 0.8rem;
+  }
+
+  .address h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .address p {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .address a {
+    font-size: 0.9rem;
+  }
+  .map {
+    width: 100%;
+  }
 }
-    .address {
-        width: 100%;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .address h2 {
-        font-size: 0.8rem;
-    }
-
-    .address h1 {
-        font-size: 1.5rem;
-        text-align: center;
-    }
-
-    .address p {
-        font-size: 0.8rem;
-        text-align: center;
-    }
-    .address a {
-        font-size: 0.9rem;
-    }
-    .map {
-        width: 100%;
-    }
-}
-
-
-
-
-

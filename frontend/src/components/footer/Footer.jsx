@@ -36,9 +36,9 @@ export default function Footer() {
                     <h3>Legal & Account</h3>
                     <ul>
                         <Link to="/"><li>Privacy Policy</li></Link>
-                        <Link to="/"><li>Terms of Service</li></Link>
                         <Link to="/login"><li>User Login</li></Link>
                         <Link to="/profile"><li>Profile</li></Link>
+                        <Link to="/"><li>Terms of Service</li></Link>
                     </ul>
                 </div>
 

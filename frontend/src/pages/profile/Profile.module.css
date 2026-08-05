@@ -2,7 +2,6 @@
     margin: 4vh 8vw 10vh 8vw;
     width: 84vw;
     min-height: 60vh;
-    /* border: 2px solid black; */
 }
 
 .profile h1 {
@@ -12,7 +11,6 @@
 
 .profileContainer {
     margin-top: 3vh;
-    /* border: 2px solid rgb(243, 23, 23); */
     width: 100%;
     height: 100%;
     display: flex;
@@ -22,14 +20,12 @@
 .leftSection {
     width: 50%;
     height: 97%;
-    /* border: 2px solid rgb(11, 12, 11); */
     display: flex;
 
 }
 
 /* Profile editing */
 .editProfile {
-    /* border: 2px solid rgb(153, 0, 255); */
     width: 50%;
     height: 58vh;
     position: relative;
@@ -53,6 +49,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
+
 }
 
 .editBox h1 {
@@ -100,7 +98,7 @@
     font-weight: 550;
     padding: 0.5rem 1rem 0.5rem 1rem;
     width: fit-content;
-    margin: 0 auto 0 auto;
+    margin: 0 auto;
     cursor: pointer;
 }
 
@@ -130,7 +128,6 @@
 
 .listReq {
     background-color: rgb(230, 249, 231);
-    margin: 5% 10% 10% 10%;
     padding: 1rem;
     border-radius: 1rem;
 }
@@ -156,10 +153,10 @@
 
 /* When user is Verified Retailer */
 .verifiedRetailer {
-    width: 25%;
+    width: 23%;
     height: auto;
     position: absolute;
-    top: 3%;
+    top: 4%;
     margin-left: 38%;
 }
 
@@ -173,6 +170,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 .verified h1 {
@@ -326,24 +324,28 @@
         height: fit-content;
     }
 
-    .editProfile img {
-        margin-bottom: 1.5rem;
-    }
-
     .setting {
-        width: 15%;
-        margin: 5% 0 0 42%;
+        width: 13%;
+        margin: 7% 0 0 44%;
     }
 
     .retailer {
         width: 22%;
-        margin: 7% 0 0 38%;
+        margin: 7% 0 0 39%;
     }
     
     .becomeRetailer {
         width: 100%;
         height: fit-content;
     }
+
+    .verifiedRetailer {
+    width: 19%;
+    height: auto;
+    position: absolute;
+    top: 8%;
+    margin-left: 41%;
+}
 
     .rightSection {
         width: 100%;

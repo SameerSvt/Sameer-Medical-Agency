@@ -17,7 +17,7 @@ const addNewAddress = asyncHandler( async (req, res) => {
         throw new ApiError(500, "Unable to save address")
     }
 
-    return res.status(201).json(new ApiResponse(201, address, "Address saved successfully"))
+return res.status(201).json(new ApiResponse(201, address, "Address saved successfully"))
 })
 
 const getAddress = asyncHandler( async (req, res) => {

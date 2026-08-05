@@ -6,7 +6,6 @@
 
 .leftSection {
   width: 50%;
-  /* border: 2px solid black; */
 }
 
 .leftImage {
@@ -16,7 +15,6 @@
 .rightSection {
   padding: 1.8% 8% 1.8% 0;
   width: 50%;
-  /* border: 2px solid black;  */
 }
 
 .loginContainer {

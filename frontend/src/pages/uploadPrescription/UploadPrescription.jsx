@@ -88,7 +88,7 @@ export default function uploadPrescription() {
             <div className={styles.processBox}>
               <div><img src="uploadPrescriptionProcess/process4.png"></img></div>
               <h3><strong>4.</strong> Secure Payment & Order</h3>
-              <p>Place your order after secure payment via OR or other methods.</p>
+              <p>Place your order after secure payment via QR or other methods.</p>
             </div>
           </div>
           <div className={styles.callButton}>

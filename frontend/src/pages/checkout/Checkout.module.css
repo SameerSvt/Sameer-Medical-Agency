@@ -1,5 +1,4 @@
 .checkoutPage {
-  /* border: 2px solid black; */
   height: 71vh;
   display: flex;
   justify-content: space-between;
@@ -7,15 +6,12 @@
 }
 
 .leftContainer {
-  background-color: transparent;
-  /* border: 2px solid black; */
   width: 30%;
 }
 
 .address {
   margin-bottom: 50px;
-  /* border: 2px solid black; */
-  box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+  box-shadow: 0 0 10px 1px rgb(133, 132, 132);
   padding: 1rem;
   border-radius: 1rem;
 }
@@ -26,21 +22,16 @@
 }
 
 .deliveryDetails {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .deliveryDetails h3 {
-  font-weight: 900;
+  font-weight: 600;
   font-size: 1.1rem;
 }
 
 .deliveryDetails p {
   font-size: 1rem;
-}
-
-.deliveryDetails h1 {
-  font-family: 1rem;
-  font-weight: 400;
 }
 
 .addressButtons {
@@ -63,7 +54,7 @@
 }
 
 .productContainer {
-  box-shadow: 0 0 20px 5px rgb(133, 132, 132);
+  box-shadow: 0 0 10px 1px rgb(133, 132, 132);
   padding: 1rem;
   border-radius: 1rem;
 }
@@ -74,7 +65,6 @@
 }
 
 .orderItems {
-  padding: 1rem;
   border-radius: 1rem;
   min-height: 34vh;
   max-height: 34vh;
@@ -83,14 +73,12 @@
 
 .middleContainer {
   background-color: transparent;
-  /* border: 2px solid black; */
   height: 100%;
   width: 30%;
 }
 
 .payments {
-    box-shadow: 0 0 20px 5px rgb(133, 132, 132);
-  /* border: 2px solid blue; */
+  box-shadow: 0 0 10px 1px rgb(133, 132, 132);;
   padding: 1rem;
   border-radius: 1rem; 
 }
@@ -109,7 +97,6 @@
 }
 
 .cardPayment {
-  /* border: 2px solid black; */
   margin-bottom: 3rem;
 }
 
@@ -146,7 +133,6 @@
 
 .rightContainer {
   background-color: transparent;
-  /* border: 2px solid black; */
   height: 100%;
   width: 30%;
 }
@@ -157,8 +143,7 @@
 
 /*order summary */
 .orderSummary {
-  box-shadow: 0 0 20px 5px rgb(133, 132, 132);
-  /* border: 2px solid blue; */
+  box-shadow: 0 0 10px 1px rgb(133, 132, 132);
   padding: 1rem;
   border-radius: 1rem;
 }
@@ -204,4 +189,73 @@
 .orderSummary img {
   width: 100%;
   height: auto;
+}
+
+@media (max-width: 768px) {
+  .checkoutPage {
+  height: fit-content;
+    flex-direction: column;
+  margin: 3vh 5vw;
+}
+
+.leftContainer {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.address {
+  margin-bottom: 2rem;
+}
+
+.address h6 {
+  font-size: 1.5rem;
+}
+
+.productContainer h6 {
+  font-size: 1.5rem;
+}
+
+.orderItems {
+  min-height: fit-content;
+  overflow-y: unset;
+}
+
+.middleContainer {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.payments h6 {
+  font-size: 1.5rem;
+}
+
+.cardPayment {
+  margin-bottom: 2rem;
+}
+
+.cardPayment span {
+  font-size: 1.2rem;
+}
+
+.cardPayment input {
+  height: 15px;
+  width: 15px;
+}
+
+.cardPayment img {
+  height: 30px;
+  margin-top: 15px;
+  margin-left: 23px;
+}
+
+.rightContainer {
+  width: 100%;
+}
+
+/*order summary */
+.orderSummary img {
+  width: 70%;
+  margin: 0 15%;
+}
+
 }

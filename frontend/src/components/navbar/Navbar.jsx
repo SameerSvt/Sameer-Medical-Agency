@@ -35,7 +35,6 @@ export default function Navbar() {
     }
 
     function handleUploadPrescriptionClick() {
-        closeMenu()
         navigate('/uploadprescription')
     }
 
@@ -76,8 +75,7 @@ export default function Navbar() {
                 <FaSearch className={styles.iconSearch} onClick={handleSearchIconClick} />
             </div>
 
-            {/* for phone */}
-            <div> {!isMenuOpen ? <IoMenu className={styles.menu} onClick={handleMenuClick} /> : <IoClose className={styles.menu} onClick={handleMenuClick} />}</div>
+            <div> <IoMenu className={styles.menu} onClick={handleMenuClick} /></div>
 
             {/* for desktop */}
             <div className={styles.navItems}>
@@ -114,48 +112,60 @@ export default function Navbar() {
                     </Link></div>}
             </div>
 
-            {/* for phone */}
-            {isMenuOpen &&
-                <div className={styles.menuItems}>
+            <div className={`${styles.overlay} ${isMenuOpen ? styles.isOverlayActive : ''}`} onClick={closeMenu}>
 
-                    {isLoggedIn && <div>
-                        <Link className={styles.iconOption} to="/profile">
+                <div className={`${styles.menuWrapper} ${isMenuOpen ? styles.isMenuWrapperActive : ''}`}>
+
+                    <div className={styles.closeMenu}> <IoClose color="gray" size="25px" onClick={handleMenuClick} /> </div>
+
+                    <div className={styles.menuItems}>
+                        {isLoggedIn &&
                             <div>
-                                <FaUserNurse className={styles.iconProfile} />
+                                <div>
+                                    <Link className={styles.iconOption} to="/profile">
+                                        <div>
+                                            <FaUserNurse className={styles.iconProfile} />
+                                        </div>
+                                        <div>
+                                            <p>Hi ! {firstName}</p>
+                                            <h1>Profile</h1>
+                                        </div>
+
+                                    </Link></div>
+                                <hr></hr>
                             </div>
+                        }
+
+                        {isLoggedIn &&
                             <div>
-                                <p>Hi ! {firstName}</p>
-                                <h1>Profile</h1>
+                                <Link className={styles.iconOption} to="/cart">
+                                    <div>
+                                        <FaCartPlus className={styles.iconCart} />
+                                    </div>
+                                    <div className={styles.cartCount}>
+                                        <span>{billingDetails.quantity || 0}</span>
+                                        <h1>Cart</h1>
+                                    </div>
+                                </Link>
+                                <hr></hr>
                             </div>
+                        }
 
-                        </Link></div>}
-                    <hr></hr>
+                        <Link className={styles.item} to="/about-us">About Us</Link>
+                        <hr></hr>
 
-                    {isLoggedIn &&
-                        <Link className={styles.iconOption} to="/cart">
-                            <div>
-                                <FaCartPlus className={styles.iconCart} />
-                            </div>
-                            <div className={styles.cartCount}>
-                                <span>{billingDetails.quantity || 0}</span>
-                                <h1>Cart</h1>
-                            </div>
-                        </Link>}
-                    <hr></hr>
+                        {isLoggedIn && <div className={styles.uploadPres} onClick={handleUploadPrescriptionClick}>
+                            <FaCloudUploadAlt className={styles.iconUpload} />
+                            <div> Upload Prescription </div>
+                        </div>
+                        }
 
-                    <Link className={styles.item} to="/about-us">About Us</Link>
-                    <hr></hr>
-
-                    {isLoggedIn && <div className={styles.uploadPres} onClick={handleUploadPrescriptionClick}>
-                        <FaCloudUploadAlt className={styles.iconUpload} />
-                        <div> Upload Prescription </div>
+                        {!isLoggedIn && <Link className={styles.item} to="/login">Login / Sign Up</Link>}
                     </div>
-                    }
-
-                    {!isLoggedIn && <Link className={styles.item} to="/login">Login / Sign Up</Link>}
 
                 </div>
-            }
+            </div>
+
         </div>
     )
 }
