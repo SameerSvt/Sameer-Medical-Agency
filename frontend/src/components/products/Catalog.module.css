@@ -75,6 +75,10 @@
 }
 
 @media (max-width: 768px) {
+    .catalogPage {
+        min-height: 79vh;
+    }
+
     .catalogBanner img {
         border-radius: 0.5rem;
     }

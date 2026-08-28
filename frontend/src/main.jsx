@@ -8,6 +8,8 @@ import ProductFilterProvider from './context/ProductFilterContext.jsx'
 import AuthProvider from './context/AuthContext.jsx'
 import CartProvider from './context/CartContext.jsx'
 
+axios.defaults.withCredentials = true
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

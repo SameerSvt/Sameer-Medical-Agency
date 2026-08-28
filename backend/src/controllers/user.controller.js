@@ -85,14 +85,14 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(user._id)
 
-    //const loggedinUser = await User.findById(user._id).select("-password -refreshToken")
     const loggedinUser = user.toObject()
     delete loggedinUser.password
     delete loggedinUser.refreshToken
 
     const options = {
         httpOnly: true,
-        secure: false
+        secure: ture,
+        sameSite: "none"
     }
 
     console.log("Login Successfull")
@@ -142,7 +142,8 @@ const logoutUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: false
+        secure: ture,
+        sameSite: "none"
     }
 
     return res

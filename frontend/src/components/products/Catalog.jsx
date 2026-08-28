@@ -19,7 +19,7 @@ export default function Catalog({ searchTerm, categoryTerm }) {
   // const brandOptions = ["Pfizer", "Johnson", "Sanofi", "Cipla", "Abbott", "Mankind", "Lupin", "Zydus", "Alkem", "Ipca"];
 
   return (
-    <div>
+    <div className={styles.catalogPage}>
       <div className={styles.catalogBanner}>
         <img src="myAssets/Catalog.png"></img>
       </div>
