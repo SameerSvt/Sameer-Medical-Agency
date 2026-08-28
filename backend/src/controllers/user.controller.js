@@ -91,7 +91,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: ture,
+        secure: true,
         sameSite: "none"
     }
 
@@ -142,7 +142,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: ture,
+        secure: true,
         sameSite: "none"
     }
 
@@ -327,7 +327,7 @@ const editAvatar = asyncHandler(async (req, res) => {
                 avatar: uploadedAvatar.url
             }
         },
-        {returnDocument: "after"}
+        { returnDocument: "after" }
     ).select("-password -refreshToken");
 
     if (!updatedUser) {
