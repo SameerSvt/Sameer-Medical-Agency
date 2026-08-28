@@ -8,7 +8,10 @@ import ProductFilterProvider from './context/ProductFilterContext.jsx'
 import AuthProvider from './context/AuthContext.jsx'
 import CartProvider from './context/CartContext.jsx'
 
-axios.defaults.withCredentials = true
+import axios from 'axios';
+
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL || "https://sameer-medical-agency.onrender.com";
+axios.defaults.withCredentials = true; 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
